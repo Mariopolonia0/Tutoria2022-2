@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:projecto_ucne/models/estudiante.dart';
-import '../../models/login.dart';
 
 class MateriaHoy extends StatelessWidget {
   MateriaHoy({super.key});
