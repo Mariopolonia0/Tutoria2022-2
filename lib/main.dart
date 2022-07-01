@@ -10,6 +10,6 @@ void main() {
       //aqui ban las rutas de las ventanas
       routes: {
         '/': (context) => LoginScreen(),
-        '/materiaHoy': (context) => MateriaHoy()
+        '/materiaHoy': (context) => const MateriaHoy()
       }));
 }

@@ -22,6 +22,7 @@ class LoginScreen extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: SingleChildScrollView(
+              reverse: true,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -29,7 +30,7 @@ class LoginScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(25.0),
                     child: Image.asset(
                       'assets/icon/iconUcne.png',
-                      width: 170,
+                      width: 110,
                     ),
                   ),
                   TextFormField(
@@ -95,6 +96,7 @@ class LoginScreen extends StatelessWidget {
               ),
             )));
   }
+
 //ESTA HAY QUE PONERLA EN EL PAQUETE DE UTIL
   AlertDialog alertDialog(String informacion, BuildContext context) {
     return AlertDialog(
@@ -109,6 +111,7 @@ class LoginScreen extends StatelessWidget {
       ],
     );
   }
+
 //ESTA FUNCION ES DE PRUBA HAY QUE ELIMINARLA LUEGO
   Estudiante? validadlogin(String usuario, String password) {
     if (usuario == "2016-0037") {
@@ -120,6 +123,11 @@ class LoginScreen extends StatelessWidget {
       if (password == "1234") {
         return Estudiante(
             "Jesus Abreu", 20180616, 05, 5966, "2018-0616", 0.0, 0.0);
+      }
+    } else if (usuario == "5") {
+      if (password == "0") {
+        return Estudiante(
+            "Mario Peña Polonia", 20180616, 05, 5966, "2016-0037", 0.0, 0.0);
       }
     }
     return null;
