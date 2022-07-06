@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projecto_ucne/models/estudiante.dart';
+import 'package:projecto_ucne/models/Dto/login_dto.dart';
 
 class MateriaHoy extends StatefulWidget {
   const MateriaHoy({super.key});
@@ -15,11 +15,12 @@ class _MateriaHoyState extends State<MateriaHoy> {
 
   final passwortController = TextEditingController();
 
-  Estudiante arguments = Estudiante("", 0, 0, 0, "", 0, 0);
+  LoginDto arguments =
+      LoginDto(estudianteId: 0, nombreEstudiante: '', matricula: '');
 
   @override
   Widget build(BuildContext context) {
-    arguments = ModalRoute.of(context)!.settings.arguments as Estudiante;
+    arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       drawer: drawerMenuoption2(),
@@ -73,7 +74,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
           'assets/icon/iconUcne.png',
           width: 100,
         ),
-        textwidget(arguments.nombre),
+        textwidget(arguments.nombreEstudiante),
         textwidget(arguments.matricula)
       ],
     );

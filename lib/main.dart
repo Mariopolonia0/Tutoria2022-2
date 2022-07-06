@@ -9,7 +9,7 @@ void main() {
       initialRoute: '/',
       //aqui ban las rutas de las ventanas
       routes: {
-        '/': (context) => LoginScreen(),
+        '/': (context) => const LoginScreen(),
         '/materiaHoy': (context) => const MateriaHoy()
       }));
 }

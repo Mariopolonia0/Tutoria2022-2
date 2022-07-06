@@ -7,6 +7,6 @@ class Estudiante {
   final double balancetotal;
   final double balancependiente;
 
-  Estudiante(this.nombre,this.estudianteId, this.carreraId, this.personaId, this.matricula,
-      this.balancetotal, this.balancependiente);
+  Estudiante(this.nombre, this.estudianteId, this.carreraId, this.personaId,
+      this.matricula, this.balancetotal, this.balancependiente);
 }
