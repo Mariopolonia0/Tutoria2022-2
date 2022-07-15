@@ -22,11 +22,13 @@ class _LoginScreenState extends State<LoginScreen> {
   var logindto = LoginDto(estudianteId: 0, nombreEstudiante: "", matricula: "");
   bool loading = false;
 
+// surfaceTintColor: Colors.white,
+//           backgroundColor: const Color(0xFF00247D),
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: const Color.fromARGB(255, 202, 216, 223),
+        backgroundColor: const Color(0xFFD3DFFF),
         body: loading
             ? const Center(child: CircularProgressIndicator())
             : Column(
@@ -46,15 +48,15 @@ class _LoginScreenState extends State<LoginScreen> {
         if (login.estudianteId > 0) {
           loginCorrecto(login);
         } else {
-          desactivarprogress('Error de usuario o cantraseña',context);
+          desactivarprogress('Error de usuario o cantraseña');
         }
       }
     } on SocketException catch (_) {
-      desactivarprogress('Error de internet', context);
+      desactivarprogress('Error de internet');
     }
   }
 
-  void desactivarprogress(String texto, BuildContext context) {
+  void desactivarprogress(String texto) {
     setState(() {
       loading = false;
     });
@@ -64,6 +66,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   loginCorrecto(LoginDto login) {
+    setState(() {
+      loading = false;
+    });
     Navigator.of(context).pushNamed('/materiaHoy', arguments: login);
   }
 
@@ -84,36 +89,15 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 8,
             ),
-            TextFormField(
-              controller: matriculaController,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'campo matricula esta vacío';
-                }
-                return null;
-              },
-              decoration: const InputDecoration(
-                  labelText: "Matricula",
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.email_outlined)),
-            ),
+            textFormField('Matricula', Icons.account_circle_outlined,
+                matriculaController),
             const SizedBox(
               height: 8,
             ),
-            TextFormField(
-              controller: passwortController,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'campo contraseña esta vacío';
-                }
-                return null;
-              },
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.password_outlined),
-                labelText: "Contraseña",
-                border: OutlineInputBorder(),
-              ),
+            textFormField(
+                'Contraseña', Icons.password_outlined, passwortController),
+            const SizedBox(
+              height: 8,
             ),
             buttonLogin()
           ],
@@ -122,25 +106,54 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Container buttonLogin() {
-    return Container(
-      child: TextButton(
-        style: TextButton.styleFrom(
-            padding: const EdgeInsets.all(8.0),
-            textStyle: const TextStyle(
-              fontSize: 26,
-            )),
-        onPressed: () {
-          //LOGICA DEL LOGIN HAY QUE LLEVARLA PARA UNA FUNCION
-          if (fonmKey.currentState!.validate()) {
-            setState(() {
-              loading = true;
-            });
-            validarlogin(matriculaController.text, passwortController.text);
-          }
-        },
-        child: const Text("Conectar"),
+  TextFormField textFormField(
+      String texto, IconData icon, TextEditingController controller) {
+    return TextFormField(
+      controller: controller,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'campo $texto esta vacío';
+        }
+        return null;
+      },
+      style: const TextStyle(color: Color(0xFF00247D)),
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        hintText: texto,
+        hintStyle: const TextStyle(color: Color(0xFF5A6581)),
+        border: const OutlineInputBorder(),
+        focusedBorder: const OutlineInputBorder(),
+        prefixIcon: Icon(
+          icon,
+          color: const Color(0xFF00247D),
+        ),
       ),
+    );
+  }
+
+  TextButton buttonLogin() {
+    return TextButton.icon(
+      style: TextButton.styleFrom(
+          backgroundColor: const Color(0xFF00247D), //EC1C24
+          padding: const EdgeInsets.all(8.0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+      onPressed: () {
+        if (fonmKey.currentState!.validate()) {
+          setState(() {
+            loading = true;
+          });
+          validarlogin(matriculaController.text, passwortController.text);
+        }
+      },
+      icon: const Icon(Icons.login_outlined, color: Colors.white),
+      label: const Text("Ingresar",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 26,
+            color: Colors.white,
+          )),
     );
   }
 
