@@ -27,6 +27,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
 
     octenerMaterias();
     return Scaffold(
+       
       resizeToAvoidBottomInset: false,
       drawer: drawerMenuoption2(),
       appBar: AppBar(
@@ -171,7 +172,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
               SizedBox(
                 height: 230,
                 child: DrawerHeader(
-                  decoration: const BoxDecoration(color: Color(0xFF00247D)),
+                  decoration: const BoxDecoration(color: Color(0xFF91D8F7)),
                   child: getHerder(),
                 ),
               ),
