@@ -1,9 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:projecto_ucne/models/Dto/login_dto.dart';
-import 'package:http/http.dart' as http;
-
+import 'package:projecto_ucne/data/remote/conexion_retrofit.dart';
+import '../../models/Dto/login_dto.dart';
 import '../../models/Dto/materia_dto.dart';
 
 class MateriaHoy extends StatefulWidget {
@@ -16,19 +14,17 @@ class MateriaHoy extends StatefulWidget {
 class _MateriaHoyState extends State<MateriaHoy> {
   final fonmKey = GlobalKey<FormState>();
 
-  final matriculaController = TextEditingController();
-
-  final passwortController = TextEditingController();
   int loading = 0;
 
   LoginDto arguments =
       LoginDto(estudianteId: 0, nombreEstudiante: '', matricula: '');
 
-  final List<MateriaDto> _materiasDtos = List.empty(growable: true);
+  List<MateriaDto> _materiasDtos = List.empty(growable: true);
 
   @override
   Widget build(BuildContext context) {
     arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
+
     octenerMaterias();
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -37,7 +33,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
           surfaceTintColor: Colors.white,
           backgroundColor: const Color(0xFF00247D),
           title: const Text('Materia De Hoy')),
-      backgroundColor: const Color(0xFFD3DFFF),
+      backgroundColor: const Color(0xFF91D8F7),
       body: octenerVista(),
     );
   }
@@ -49,7 +45,11 @@ class _MateriaHoyState extends State<MateriaHoy> {
           if (_materiasDtos.isNotEmpty) {
             return listaMateria();
           } else {
-            return const Text('No Tiene Materia Hoy');
+            return Center(
+                child: Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: getNotieneMateria(),
+            ));
           }
         }
       case 2:
@@ -63,55 +63,103 @@ class _MateriaHoyState extends State<MateriaHoy> {
     }
   }
 
+  Widget getNotieneMateria() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(
+          'assets/icon/iconUcne.png',
+          width: 100,
+        ),
+        const Text("Estimado estudiante no tiene docencia hoy.",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00247D))),
+        const SizedBox(
+          height: 18,
+        ),
+        const Text("Valoramos tu tiempo",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.white)) //37B34A
+      ],
+    );
+  }
+
   Widget listaMateria() {
-    return ListView.separated(
+    return ListView.builder(
       padding: const EdgeInsets.all(8),
       itemCount: _materiasDtos.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          height: 50,
-          color: Colors.white,
-          child: Center(
-              child: Column(
-            children: [
-              Text(index.toString()),
-              Text(_materiasDtos[index].nombreMateria),
-            ],
+      itemBuilder: (BuildContext context, int index) => Padding(
+          padding: const EdgeInsets.all(4),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: getItemMateria(_materiasDtos[index]),
+            ),
           )),
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) => const Divider(),
+    );
+  }
+
+  Row getItemMateria(MateriaDto materiaDto) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            texto(materiaDto.horaInicio, color: const Color(0xFF37B34A)),
+            texto(materiaDto.horaFinal, color: const Color(0xFFEC1C24)),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            texto(materiaDto.nombreMateria),
+            Row(
+              children: [
+                const Icon(Icons.apartment_outlined, color: Color(0xFF00247D)),
+                texto(materiaDto.aula),
+              ],
+            )
+          ],
+        )
+      ],
+    );
+  }
+
+  Padding texto(String texto, {Color color = Colors.black}) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Text(texto,
+          style: TextStyle(fontWeight: FontWeight.bold, color: color)),
     );
   }
 
   octenerMaterias() async {
-    try {
-      var valor = arguments.estudianteId;
-      var response = await http.post(
-        Uri.parse(
-            'https://tutoria2022.azurewebsites.net/api/MateriaHoy?estudianteId=$valor'),
-        headers: {"accept": "text/plain"},
-      );
-      if (response.statusCode == 200) {
-        if (_materiasDtos.isEmpty) {
-          for (var element in json.decode(response.body)) {
-            _materiasDtos.add(MateriaDto.fromJson(element));
-          }
-          setState(() {
-            loading = 1;
-          });
-        }
-        return;
-      } else {
-        setState(() {
-          loading = 2;
-        });
-      }
-    } on SocketException catch (_) {
+    final client = RestClient(Dio(BaseOptions(
+      contentType: Headers.jsonContentType,
+      validateStatus: (_) => true,
+    )));
+    client.getMateriaHoy(arguments.estudianteId.toString()).then((value) {
+      _materiasDtos = value;
       setState(() {
-        loading = 3;
+        loading = 1;
       });
-    }
+    }).catchError((Object obj) {
+      const Text('Error de Internet');
+    });
   }
 
   Drawer drawerMenuoption2() {
@@ -123,7 +171,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
               SizedBox(
                 height: 230,
                 child: DrawerHeader(
-                  decoration: const BoxDecoration(color:Color(0xFF00247D)),
+                  decoration: const BoxDecoration(color: Color(0xFF00247D)),
                   child: getHerder(),
                 ),
               ),
