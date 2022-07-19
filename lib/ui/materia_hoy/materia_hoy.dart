@@ -24,7 +24,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
   @override
   Widget build(BuildContext context) {
     arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
-
     octenerMaterias();
     return Scaffold(
        
@@ -34,12 +33,12 @@ class _MateriaHoyState extends State<MateriaHoy> {
           surfaceTintColor: Colors.white,
           backgroundColor: const Color(0xFF00247D),
           title: const Text('Materia De Hoy')),
-      backgroundColor: const Color(0xFF91D8F7),
-      body: octenerVista(),
+
+
     );
   }
 
-  Widget octenerVista() {
+  Widget obtenerVista() {
     switch (loading) {
       case 1:
         {
@@ -148,6 +147,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
     );
   }
 
+
   octenerMaterias() async {
     final client = RestClient(Dio(BaseOptions(
       contentType: Headers.jsonContentType,
@@ -172,8 +172,8 @@ class _MateriaHoyState extends State<MateriaHoy> {
               SizedBox(
                 height: 230,
                 child: DrawerHeader(
-                  decoration: const BoxDecoration(color: Color(0xFF91D8F7)),
-                  child: getHerder(),
+                  decoration: const BoxDecoration(color: Color(0xFF00247D)),
+                  child: getHeader(),
                 ),
               ),
               ListTile(
@@ -201,7 +201,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
     );
   }
 
-  Column getHerder() {
+  Column getHeader() {
     return Column(
       children: [
         Image.asset(
