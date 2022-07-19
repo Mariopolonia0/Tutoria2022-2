@@ -26,6 +26,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
     arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
     octenerMaterias();
     return Scaffold(
+       
       resizeToAvoidBottomInset: false,
       drawer: drawerMenuoption2(),
       appBar: AppBar(
