@@ -17,7 +17,7 @@ class _PerfilState extends State<Perfil> {
   final matriculaController = TextEditingController();
   final passwordController = TextEditingController();
 
-  var estudianteDto = EstudianteDto(
+  var arguments = EstudianteDto(
       nombre: "",
       estudianteId: 0,
       carreraId: 0,
@@ -26,20 +26,36 @@ class _PerfilState extends State<Perfil> {
       balancetotal: 0,
       balancependiente: 0);
 
-  bool loading = false;
+  int loading = 0;
 
   @override
   Widget build(BuildContext context) {
+    arguments = ModalRoute.of(context)!.settings.arguments as EstudianteDto;
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: const Color(0xFFD3DFFF),
-        body: loading
-            ? const Center(child: CircularProgressIndicator())
-            : Column(
-                children: [formulario(context)],
-              ));
+      resizeToAvoidBottomInset: false,
+      drawer: drawerMenuoption2(),
+      appBar: AppBar(
+          surfaceTintColor: Colors.white,
+          backgroundColor: const Color(0xFF00247D),
+          title: const Text('Perfil')),
+      backgroundColor: const Color(0xFFD3DFFF),
+      body: obtenerVista(),
+    );
   }
 
+  Widget obtenerVista() {
+    switch (loading) {
+      case 1:
+        {
+          return const Text('Error De Internet');
+        }
+      default:
+        {
+          return const Center(child: CircularProgressIndicator());
+        }
+    }
+  }
+  /*
   Form formulario(BuildContext context) {
     return Form(
       key: fonmkey,
@@ -67,10 +83,79 @@ class _PerfilState extends State<Perfil> {
             const SizedBox(
               height: 8,
             ),
-            buttonLogin()
           ],
         ),
       ),
+    );
+  }
+*/
+
+  Drawer drawerMenuoption2() {
+    return Drawer(
+      child: Container(
+          color: Colors.white,
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 230,
+                child: DrawerHeader(
+                  decoration: const BoxDecoration(color: Color(0xFF00247D)),
+                  child: getHeader(),
+                ),
+              ),
+              ListTile(
+                title: textwidgetblack('Matrícula'),
+                leading: const Icon(Icons.person),
+                onTap: () {},
+              ),
+              ListTile(
+                title: textwidgetblack('Correo Institucional'),
+                leading: const Icon(Icons.mail),
+                onTap: () {},
+              ),
+              ListTile(
+                title: textwidgetblack('Nacionalidad'),
+                leading: const Icon(Icons.home),
+                onTap: () {},
+              ),
+              ListTile(
+                title: textwidgetblack('Teléfono'),
+                leading: const Icon(Icons.phone),
+                onTap: () {},
+              ),
+              ListTile(
+                title: textwidgetblack('Celular'),
+                leading: const Icon(Icons.phone_android),
+                onTap: () {},
+              )
+            ],
+          )),
+    );
+  }
+
+  Text textwidgetblack(String text) {
+    return Text(text,
+        style: const TextStyle(color: Colors.black, fontSize: 20));
+  }
+
+  Padding textwidget(String text) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child:
+          Text(text, style: const TextStyle(color: Colors.white, fontSize: 20)),
+    );
+  }
+
+  Column getHeader() {
+    return Column(
+      children: [
+        Image.asset(
+          'assets/icon/headerPerfil.png',
+          width: 100,
+        ),
+        textwidget(arguments.nombre),
+        textwidget(arguments.matricula)
+      ],
     );
   }
 
@@ -97,31 +182,6 @@ class _PerfilState extends State<Perfil> {
           color: const Color(0xFF00247D),
         ),
       ),
-    );
-  }
-
-  TextButton buttonLogin() {
-    return TextButton.icon(
-      style: TextButton.styleFrom(
-          backgroundColor: const Color(0xFF00247D), //EC1C24
-          padding: const EdgeInsets.all(8.0),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-      onPressed: () {
-        if (fonmkey.currentState!.validate()) {
-          setState(() {
-            loading = true;
-          });
-          //validarlogin(matriculaController.text, passwortController.text);
-        }
-      },
-      icon: const Icon(Icons.login_outlined, color: Colors.white),
-      label: const Text("Ingresar",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 26,
-            color: Colors.white,
-          )),
     );
   }
 

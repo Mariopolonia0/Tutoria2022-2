@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       loading = false;
     });
-    Navigator.of(context).pushNamed('/materiaHoy', arguments: login);
+    Navigator.of(context).pushNamed('/perfil', arguments: login);
   }
 
   Form formulario(BuildContext context) {

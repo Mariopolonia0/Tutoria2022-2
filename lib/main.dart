@@ -7,8 +7,8 @@ void main() {
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Ucne Consulta",
-      initialRoute: '/',
-      //aqui ban las rutas de las ventanas
+      initialRoute: '/perfil',
+      //aqui van las rutas de las ventanas
       routes: {
         '/': (context) => const LoginScreen(),
         '/materiaHoy': (context) => const MateriaHoy(),
