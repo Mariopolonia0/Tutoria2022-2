@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projecto_ucne/models/Dto/login_dto.dart';
 import '../../models/Dto/estudiante_dto.dart';
+
 
 class Perfil extends StatefulWidget {
   const Perfil({super.key});
@@ -14,23 +16,25 @@ class _PerfilState extends State<Perfil> {
   final matriculaController = TextEditingController();
   final passwordController = TextEditingController();
 
-  var arguments = EstudianteDto(
-      nombre: "",
-      estudianteId: 0,
-      carreraId: 0,
-      personaId: 0,
-      matricula: "",
-      balancetotal: 0,
-      balancependiente: 0);
+  LoginDto arguments =
+      LoginDto(estudianteId: 0, nombreEstudiante: '', matricula: '');
+  // EstudianteDto(
+  //     nombre: "",
+  //     estudianteId: 0,
+  //     carreraId: 0,
+  //     personaId: 0,
+  //     matricula: "",
+  //     balancetotal: 0,
+  //     balancependiente: 0);
 
   int loading = 0;
 
   @override
   Widget build(BuildContext context) {
-    arguments = ModalRoute.of(context)!.settings.arguments as EstudianteDto;
+    arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      drawer: drawerMenuoption2(),
+      //drawer: drawerMenuoption2(),
       appBar: AppBar(
           surfaceTintColor: Colors.white,
           backgroundColor: const Color(0xFF00247D),
@@ -52,40 +56,6 @@ class _PerfilState extends State<Perfil> {
         }
     }
   }
-  /*
-  Form formulario(BuildContext context) {
-    return Form(
-      key: fonmkey,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Image.asset(
-              'assets/icon/iconUcne.png',
-              width: 110,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            textFormField('Matricula', Icons.account_circle_outlined,
-                matriculaController),
-            const SizedBox(
-              height: 8,
-            ),
-            textFormField(
-                'Contraseña', Icons.password_outlined, passwordController),
-            const SizedBox(
-              height: 8,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-*/
 
   Drawer drawerMenuoption2() {
     return Drawer(
@@ -101,7 +71,7 @@ class _PerfilState extends State<Perfil> {
                 ),
               ),
               ListTile(
-                title: textwidgetblack('Matrícula'),
+                title: textwidgetblack(arguments.estudianteId.toString()),
                 leading: const Icon(Icons.person),
                 onTap: () {},
               ),
@@ -150,7 +120,7 @@ class _PerfilState extends State<Perfil> {
           'assets/icon/headerPerfil.png',
           width: 100,
         ),
-        textwidget(arguments.nombre),
+        textwidget(arguments.nombreEstudiante),
         textwidget(arguments.matricula)
       ],
     );
