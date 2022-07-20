@@ -1,8 +1,6 @@
-import 'dart:convert';
-import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:projecto_ucne/models/Dto/login_dto.dart';
-import 'package:http/http.dart' as http;
+import 'package:projecto_ucne/data/remote/conexion_retrofit.dart';
 
 //ORDENAR ESTE CODIGO MEJOR
 class LoginScreen extends StatefulWidget {
@@ -19,16 +17,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final passwortController = TextEditingController();
 
-  var logindto = LoginDto(estudianteId: 0, nombreEstudiante: "", matricula: "");
   bool loading = false;
 
-// surfaceTintColor: Colors.white,
-//           backgroundColor: const Color(0xFF00247D),
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: const Color(0xFFD3DFFF),
+        backgroundColor: const Color(0xFF91D8F7),
         body: loading
             ? const Center(child: CircularProgressIndicator())
             : Column(
@@ -36,24 +31,26 @@ class _LoginScreenState extends State<LoginScreen> {
               ));
   }
 
-  validarlogin(String usuario, password) async {
-    try {
-      var response = await http.post(
-        Uri.parse(
-            'https://tutoria2022.azurewebsites.net/api/Login?Usuario=$usuario&Password=$password'),
-        headers: {"accept": "text/plain"},
-      );
-      if (response.statusCode == 200) {
-        var login = LoginDto.fromJson(json.decode(response.body));
-        if (login.estudianteId > 0) {
-          loginCorrecto(login);
-        } else {
-          desactivarprogress('Error de usuario o cantraseña');
-        }
+  validarlogin() {
+    final client = RestClient(Dio(BaseOptions(
+      contentType: Headers.jsonContentType,
+      validateStatus: (_) => true,
+    )));
+
+    client
+        .hacerLogin(matriculaController.text, passwortController.text)
+        .then((login) {
+      setState(() {
+        loading = false;
+      });
+      if (login.estudianteId == 0) {
+        desactivarprogress('Matricula y contraseña incorrecto');
+      } else {
+        Navigator.of(context).popAndPushNamed('/materiaHoy', arguments: login);
       }
-    } on SocketException catch (_) {
+    }).catchError((Object obj) {
       desactivarprogress('Error de internet');
-    }
+    });
   }
 
   void desactivarprogress(String texto) {
@@ -63,13 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
     showDialog(
         context: context,
         builder: (BuildContext context) => alertDialog(texto, context));
-  }
-
-  loginCorrecto(LoginDto login) {
-    setState(() {
-      loading = false;
-    });
-    Navigator.of(context).pushNamed('/materiaHoy', arguments: login);
   }
 
   Form formulario(BuildContext context) {
@@ -99,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 8,
             ),
-            buttonLogin()
+            buttonLogin(context)
           ],
         ),
       ),
@@ -132,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  TextButton buttonLogin() {
+  TextButton buttonLogin(BuildContext context) {
     return TextButton.icon(
       style: TextButton.styleFrom(
           backgroundColor: const Color(0xFF00247D), //EC1C24
@@ -144,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
           setState(() {
             loading = true;
           });
-          validarlogin(matriculaController.text, passwortController.text);
+          validarlogin();
         }
       },
       icon: const Icon(Icons.login_outlined, color: Colors.white),

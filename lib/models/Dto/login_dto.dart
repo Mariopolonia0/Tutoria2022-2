@@ -1,15 +1,25 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'login_dto.g.dart';
+
+@JsonSerializable()
 class LoginDto {
+  @JsonKey(name: 'estudianteId')
   final int estudianteId;
-  final String nombreEstudiante;
+  @JsonKey(name: 'nombreEstudiante')
+  String nombreEstudiante;
+  @JsonKey(name: 'matricula')
   final String matricula;
 
-  LoginDto({required this.estudianteId, required this.nombreEstudiante, required this.matricula});
+  LoginDto(
+      {required this.estudianteId,
+      required this.nombreEstudiante,
+      required this.matricula});
 
-  factory LoginDto.fromJson(Map<String, dynamic> json) {
-    return LoginDto(
-      estudianteId: json['estudianteId'],
-      nombreEstudiante: json['nombreEstudiante'],
-      matricula: json['matricula'],
-    );
-  }
+  setnombreEstudiante(String value) {
+    nombreEstudiante = value;
+  }    
+
+  factory LoginDto.fromJson(Map<String, dynamic> json) => _$LoginDtoFromJson(json);
+  Map<String, dynamic> toJson() => _$LoginDtoToJson(this);
 }
