@@ -26,15 +26,14 @@ class _MateriaHoyState extends State<MateriaHoy> {
     arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
     octenerMaterias();
     return Scaffold(
-       
+      backgroundColor: const Color(0xFF91D8F7),
       resizeToAvoidBottomInset: false,
       drawer: drawerMenuoption2(),
       appBar: AppBar(
           surfaceTintColor: Colors.white,
           backgroundColor: const Color(0xFF00247D),
           title: const Text('Materia De Hoy')),
-
-
+      body: obtenerVista(),
     );
   }
 
@@ -147,7 +146,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
     );
   }
 
-
   octenerMaterias() async {
     final client = RestClient(Dio(BaseOptions(
       contentType: Headers.jsonContentType,
@@ -177,25 +175,26 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 ),
               ),
               ListTile(
-                title: textwidgetblack('Materia De Hoy'),
+                title: textwidgetblack('Mis Datos'),
                 leading: const Icon(Icons.calendar_month),
-                onTap: () {},
+                onTap: () {
+                   Navigator.of(context).pushNamed('/perfil',arguments: arguments);
+                },
               ),
               ListTile(
                 title: textwidgetblack('Estado De Cuenta'),
                 leading: const Icon(Icons.balance),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed('/estadoCuenta',arguments: arguments);
+                },
               ),
               ListTile(
-                title: textwidgetblack('Credito Pendiente'),
+                title: textwidgetblack('Progreso Academico'),
                 leading: const Icon(Icons.request_quote),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed('/progresoAcademico',arguments: arguments);
+                },
               ),
-              ListTile(
-                title: textwidgetblack('Credito Aprobado'),
-                leading: const Icon(Icons.price_check),
-                onTap: () {},
-              )
             ],
           )),
     );

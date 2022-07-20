@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../models/Dto/login_dto.dart';
 
-class EstadoCuenta extends StatefulWidget {
-  const EstadoCuenta({super.key});
+class ProgresoAcademico extends StatefulWidget {
+  const ProgresoAcademico({super.key});
 
   @override
-  State<EstadoCuenta> createState() => _EstadoCuentaState();
+  State<ProgresoAcademico> createState() => _ProgresoAcademicoState();
 }
 
-class _EstadoCuentaState extends State<EstadoCuenta> {
+class _ProgresoAcademicoState extends State<ProgresoAcademico> {
   final fonmKey = GlobalKey<FormState>();
 
   int loading = 1;
@@ -26,7 +26,7 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
       appBar: AppBar(
           surfaceTintColor: Colors.white,
           backgroundColor: const Color(0xFF00247D),
-          title: const Text('Estado De Cuenta')),
+          title: const Text('Progreso Academico')),
       body: obtenerVista(),
     );
   }
