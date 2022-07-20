@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (login.estudianteId == 0) {
         desactivarprogress('Matricula y contraseña incorrecto');
       } else {
-        Navigator.of(context).pushNamed('/materiaHoy', arguments: login);
+        Navigator.of(context).popAndPushNamed('/materiaHoy', arguments: login);
       }
     }).catchError((Object obj) {
       desactivarprogress('Error de internet');
