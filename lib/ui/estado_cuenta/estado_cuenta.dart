@@ -19,7 +19,7 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
   @override
   Widget build(BuildContext context) {
     arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
-    
+
     return Scaffold(
       backgroundColor: const Color(0xFF91D8F7),
       resizeToAvoidBottomInset: false,
@@ -35,8 +35,7 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
     switch (loading) {
       case 1:
         {
-          
-          return Text('klk ${arguments.nombreEstudiante}');
+          return getEstado();
         }
       case 2:
         {
@@ -49,4 +48,27 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
     }
   }
 
+  Widget getEstado() {
+    return Column(
+      children: [getSubTitulo()],
+    );
+  }
+
+  Row getSubTitulo() {
+    return Row(
+      children: const [
+        Icon(
+          Icons.paid_outlined,
+          color: Colors.white,
+          size: 24.0,
+        ),
+        Text(
+          'Balance Generar : RD\$  ',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        )
+      ],
+    );
+  }
 }

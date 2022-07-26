@@ -22,13 +22,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: const Color(0xFF91D8F7),
         body: loading
             ? const Center(child: CircularProgressIndicator())
-            : Column(
-                children: [formulario(context)],
-              ));
+            : formulario(context));
   }
 
   validarlogin() {
@@ -65,34 +62,67 @@ class _LoginScreenState extends State<LoginScreen> {
   Form formulario(BuildContext context) {
     return Form(
       key: fonmKey,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+        width: MediaQuery.of(context).size.width,
         child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Image.asset(
-              'assets/icon/iconUcne.png',
-              width: 110,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            textFormField('Matricula', Icons.account_circle_outlined,
-                matriculaController),
-            const SizedBox(
-              height: 8,
-            ),
-            textFormField(
-                'Contraseña', Icons.password_outlined, passwortController),
-            const SizedBox(
-              height: 8,
-            ),
-            buttonLogin(context)
+            texto(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(25, 0, 30, 0),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(30),
+                  ),
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    textFormField(
+                        'Matricula', Icons.person_outline, matriculaController),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    textFormField(
+                        'Contraseña', Icons.key_rounded, passwortController),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    buttonLogin(context),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
+    );
+  }
+
+  Widget texto() {
+    return Column(
+      children: const [
+        Text(
+          "Universidad Catolica Nordestana",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        Text(
+          'UCNE',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 100,
+              color: Color(0xFF00247D),
+              fontWeight: FontWeight.bold),
+        )
+      ],
     );
   }
 
@@ -106,16 +136,25 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         return null;
       },
-      style: const TextStyle(color: Color(0xFF00247D)),
+      // style: const TextStyle(color: Color(0xFF00247D)),
       decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        hintText: texto,
-        hintStyle: const TextStyle(color: Color(0xFF5A6581)),
-        border: const OutlineInputBorder(),
-        focusedBorder: const OutlineInputBorder(),
+        labelText: texto,
+        labelStyle: const TextStyle(
+          color: Color(0xFF00247D),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Color(0xFF00247D), width: 2.0),
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFF00247D), width: 2.0),
+          borderRadius: BorderRadius.all(
+            Radius.circular(15),
+          ),
+        ),
         prefixIcon: Icon(
           icon,
+          size: 30,
           color: const Color(0xFF00247D),
         ),
       ),
@@ -126,9 +165,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return TextButton.icon(
       style: TextButton.styleFrom(
           backgroundColor: const Color(0xFF00247D), //EC1C24
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
       onPressed: () {
         if (fonmKey.currentState!.validate()) {
           setState(() {

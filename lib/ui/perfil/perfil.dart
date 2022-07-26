@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projecto_ucne/models/Dto/login_dto.dart';
-import '../../models/Dto/estudiante_dto.dart';
+//import '../../models/Dto/estudiante_dto.dart';
 
 
 class Perfil extends StatefulWidget {
