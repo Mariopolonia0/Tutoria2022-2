@@ -16,10 +16,7 @@ class LoginDto {
       required this.nombreEstudiante,
       required this.matricula});
 
-  setnombreEstudiante(String value) {
-    nombreEstudiante = value;
-  }    
-
-  factory LoginDto.fromJson(Map<String, dynamic> json) => _$LoginDtoFromJson(json);
+  factory LoginDto.fromJson(Map<String, dynamic> json) =>
+      _$LoginDtoFromJson(json);
   Map<String, dynamic> toJson() => _$LoginDtoToJson(this);
 }

@@ -175,13 +175,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 ),
               ),
               ListTile(
-                title: textwidgetblack('Mis Datos'),
-                leading: const Icon(Icons.calendar_month),
-                onTap: () {
-                   Navigator.of(context).pushNamed('/perfil',arguments: arguments);
-                },
-              ),
-              ListTile(
                 title: textwidgetblack('Estado De Cuenta'),
                 leading: const Icon(Icons.balance),
                 onTap: () {
@@ -189,12 +182,26 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 },
               ),
               ListTile(
-                title: textwidgetblack('Progreso Academico'),
+                title: textwidgetblack('Progreso Académico'),
                 leading: const Icon(Icons.request_quote),
                 onTap: () {
                   Navigator.of(context).pushNamed('/progresoAcademico',arguments: arguments);
                 },
               ),
+              ListTile(
+                title: textwidgetblack('Mis Datos'),
+                leading: const Icon(Icons.calendar_month),
+                onTap: () {
+                   Navigator.of(context).pushNamed('/perfil',arguments: arguments);
+                },
+              ),  
+              ListTile(
+                title: textwidgetblack('Cerrar Sesión'),
+                leading: const Icon(Icons.calendar_month),
+                onTap: () {
+                   Navigator.of(context).pushNamed('/perfil',arguments: arguments);
+                },
+              ),    
             ],
           )),
     );
