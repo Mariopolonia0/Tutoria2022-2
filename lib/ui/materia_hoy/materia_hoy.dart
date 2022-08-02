@@ -197,14 +197,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 },
               ),
               ListTile(
-                title: textwidgetblack('Materias de Hoy'),
-                leading: const Icon(Icons.calendar_today_outlined),
-                onTap: () {
-                  Navigator.of(context)
-                      .pushNamed('/materiaHoy', arguments: arguments);
-                },
-              ),
-              ListTile(
                 title: textwidgetblack('Cerrar Sesión'),
                 leading: const Icon(Icons.logout_rounded),
                 onTap: () {
