@@ -20,13 +20,13 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
   String balance = '0.00';
 
   LoginDto arguments =
-      LoginDto(estudianteId: 1, nombreEstudiante: '', matricula: '');
+      LoginDto(estudianteId: 0, nombreEstudiante: '', matricula: '');
 
   List<EstadoDto> _estados = List.empty(growable: true);
 
   @override
   Widget build(BuildContext context) {
-    // arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
+     arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
     octenerMaterias();
     return Scaffold(
         backgroundColor: const Color(0xFF91D8F7),

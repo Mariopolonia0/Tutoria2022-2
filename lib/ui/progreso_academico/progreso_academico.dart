@@ -19,7 +19,7 @@ class _ProgresoAcademicoState extends State<ProgresoAcademico> {
 
   @override
   Widget build(BuildContext context) {
-    //arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
+    arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
 
     return Scaffold(
       backgroundColor: const Color(0xFF91D8F7),
