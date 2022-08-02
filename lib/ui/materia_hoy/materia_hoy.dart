@@ -70,7 +70,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
           'assets/icon/iconUcne.png',
           width: 100,
         ),
-        const Text("Estimado estudiante no tiene docencia hoy.",
+        const Text("Estimado estudiante, no tiene docencia hoy.",
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 20,
@@ -82,9 +82,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
         const Text("Valoramos tu tiempo",
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.white))
+                fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white))
       ],
     );
   }
@@ -176,32 +174,43 @@ class _MateriaHoyState extends State<MateriaHoy> {
               ),
               ListTile(
                 title: textwidgetblack('Estado De Cuenta'),
-                leading: const Icon(Icons.balance),
+                leading: const Icon(Icons.attach_money_outlined),
                 onTap: () {
-                  Navigator.of(context).pushNamed('/estadoCuenta',arguments: arguments);
+                  Navigator.of(context)
+                      .pushNamed('/estadoCuenta', arguments: arguments);
                 },
               ),
               ListTile(
                 title: textwidgetblack('Progreso Académico'),
-                leading: const Icon(Icons.request_quote),
+                leading: const Icon(Icons.school_outlined),
                 onTap: () {
-                  Navigator.of(context).pushNamed('/progresoAcademico',arguments: arguments);
+                  Navigator.of(context)
+                      .pushNamed('/progresoAcademico', arguments: arguments);
                 },
               ),
               ListTile(
                 title: textwidgetblack('Mis Datos'),
-                leading: const Icon(Icons.calendar_month),
+                leading: const Icon(Icons.file_present_outlined),
                 onTap: () {
-                   Navigator.of(context).pushNamed('/perfil',arguments: arguments);
+                  Navigator.of(context)
+                      .pushNamed('/perfil', arguments: arguments);
                 },
-              ),  
+              ),
+              ListTile(
+                title: textwidgetblack('Materias de Hoy'),
+                leading: const Icon(Icons.calendar_today_outlined),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/materiaHoy', arguments: arguments);
+                },
+              ),
               ListTile(
                 title: textwidgetblack('Cerrar Sesión'),
-                leading: const Icon(Icons.calendar_month),
+                leading: const Icon(Icons.logout_rounded),
                 onTap: () {
-                   Navigator.of(context).pushNamed('/perfil',arguments: arguments);
+                  Navigator.of(context).pushNamed('/', arguments: arguments);
                 },
-              ),    
+              ),
             ],
           )),
     );
