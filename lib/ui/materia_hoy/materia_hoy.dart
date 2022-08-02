@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:projecto_ucne/data/remote/conexion_retrofit.dart';
 import '../../models/Dto/login_dto.dart';
 import '../../models/Dto/materia_dto.dart';
@@ -194,7 +195,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 onTap: () {
                    Navigator.of(context).pushNamed('/perfil',arguments: arguments);
                 },
-              ),  
+              ),
               ListTile(
                 title: textwidgetblack('Cerrar Sesión'),
                 leading: const Icon(Icons.calendar_month),

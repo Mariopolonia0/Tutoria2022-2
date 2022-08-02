@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import '../../models/Dto/login_dto.dart';
 
@@ -18,8 +19,8 @@ class _ProgresoAcademicoState extends State<ProgresoAcademico> {
 
   @override
   Widget build(BuildContext context) {
-    arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
-    
+    //arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
+
     return Scaffold(
       backgroundColor: const Color(0xFF91D8F7),
       resizeToAvoidBottomInset: false,
@@ -32,21 +33,51 @@ class _ProgresoAcademicoState extends State<ProgresoAcademico> {
   }
 
   Widget obtenerVista() {
-    switch (loading) {
-      case 1:
-        {
-          
-          return Text('klk ${arguments.nombreEstudiante}');
-        }
-      case 2:
-        {
-          return const Text('Error De Internet');
-        }
-      default:
-        {
-          return const Center(child: CircularProgressIndicator());
-        }
-    }
-  }
+    List<PieChartSectionData> sectionsChart = [
+      PieChartSectionData(
+        value: 35,
+        title: "35%",
+        showTitle: true,
+        color: Colors.orange,
+        radius: 100,
+      ),
+      PieChartSectionData(
+        value: 45,
+        title: "45%",
+        showTitle: true,
+        color: Colors.blue,
+        radius: 100,
+      ),
+    ];
 
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 300,
+      child: PieChart(
+        PieChartData(
+            borderData: FlBorderData(
+              show: false,
+            ),
+            sectionsSpace: 0,
+            centerSpaceRadius: 0,
+            sections: sectionsChart),
+      ),
+    );
+
+    // switch (loading) {
+    //   case 1:
+    //     {
+
+    //       return Text('klk ${arguments.nombreEstudiante}');
+    //     }
+    //   case 2:
+    //     {
+    //       return const Text('Error De Internet');
+    //     }
+    //   default:
+    //     {
+    //       return const Center(child: CircularProgressIndicator());
+    //     }
+    // }
+  }
 }

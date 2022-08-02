@@ -3,6 +3,8 @@ import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:projecto_ucne/models/Dto/login_dto.dart';
 
+import '../../models/Dto/estado_dto.dart';
+
 part 'conexion_retrofit.g.dart';
 
 @RestApi(baseUrl: "https://tutoria2022.azurewebsites.net/")
@@ -18,5 +20,7 @@ abstract class RestClient {
 
   @GET("api/MateriaHoy/{id}")
   Future<List<MateriaDto>> getMateriaHoy(@Path("id") String id);
-  
+
+  @GET("api/Transacciones/{id}")
+  Future<List<EstadoDto>> getEstados(@Path("id") String id);
 }

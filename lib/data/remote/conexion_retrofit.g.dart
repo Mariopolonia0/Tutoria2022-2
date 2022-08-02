@@ -19,49 +19,67 @@ class _RestClient implements RestClient {
 
   @override
   Future<String> bueno() async {
-    const _extra = <String, dynamic>{};
+    const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<String>(_setStreamType<String>(
-        Options(method: 'GET', headers: _headers, extra: _extra)
+    final headers = <String, dynamic>{};
+    final data = <String, dynamic>{};
+    final result = await _dio.fetch<String>(_setStreamType<String>(
+        Options(method: 'GET', headers: headers, extra: extra)
             .compose(_dio.options, '',
-                queryParameters: queryParameters, data: _data)
+                queryParameters: queryParameters, data: data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final value = result.data!;
     return value;
   }
 
   @override
   Future<LoginDto> hacerLogin(usuario, password) async {
-    const _extra = <String, dynamic>{};
+    const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = {'usuario': usuario, 'password': password};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final headers = <String, dynamic>{};
+    final data = {'usuario': usuario, 'password': password};
+    final result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<LoginDto>(
-            Options(method: 'POST', headers: _headers, extra: _extra)
+            Options(method: 'POST', headers: headers, extra: extra)
                 .compose(_dio.options, 'api/Login',
-                    queryParameters: queryParameters, data: _data)
+                    queryParameters: queryParameters, data: data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = LoginDto.fromJson(_result.data!);
+    final value = LoginDto.fromJson(result.data!);
     return value;
   }
 
   @override
   Future<List<MateriaDto>> getMateriaHoy(id) async {
-    const _extra = <String, dynamic>{};
+    const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<List<dynamic>>(
+    final headers = <String, dynamic>{};
+    final data = <String, dynamic>{};
+    final result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<MateriaDto>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
+            Options(method: 'GET', headers: headers, extra: extra)
                 .compose(_dio.options, 'api/MateriaHoy/${id}',
-                    queryParameters: queryParameters, data: _data)
+                    queryParameters: queryParameters, data: data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
+    var value = result.data!
         .map((dynamic i) => MateriaDto.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<List<EstadoDto>> getEstados(id) async {
+    const extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final headers = <String, dynamic>{};
+    final data = <String, dynamic>{};
+    final result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<EstadoDto>>(
+            Options(method: 'GET', headers: headers, extra: extra)
+                .compose(_dio.options, 'api/Transacciones/${id}',
+                    queryParameters: queryParameters, data: data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = result.data!
+        .map((dynamic i) => EstadoDto.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }

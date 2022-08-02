@@ -9,8 +9,8 @@ part of 'estado_dto.dart';
 EstadoDto _$EstadoDtoFromJson(Map<String, dynamic> json) => EstadoDto(
       descripcion: json['descripcion'] as String,
       fechaRealizado: json['fechaRealizado'] as String,
-      transaccion: json['transaccion'] as double,
-      estado: json['estado'] as double,
+      transaccion: (json['transaccion'] as num).toDouble(),
+      estado: (json['estado'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$EstadoDtoToJson(EstadoDto instance) => <String, dynamic>{

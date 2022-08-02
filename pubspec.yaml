@@ -42,6 +42,7 @@ dependencies:
   json_annotation: any
   dio: any
   intl: ^0.17.0
+  fl_chart: ^0.55.0
 
 
 
