@@ -34,6 +34,24 @@ class _PerfilState extends State<Perfil> {
       body: obtenerVista(context),
     );
   }
+  
+  obtenerMaterias() async {
+    final client = RestClient(Dio(BaseOptions(
+      contentType: Headers.jsonContentType,
+      validateStatus: (_) => true,
+    )));
+    client.getPerfil(arguments.estudianteId.toString()).then((value) {
+      perfilDto = value;
+      setState(() {
+        loading = 1;
+      });
+    }).catchError((Object obj) {
+      setState(() {
+        perfilDto.carrera = obj.toString();
+        loading = 2;
+      });
+    });
+  }
 
   Widget obtenerVista(BuildContext context) {
     switch (loading) {
@@ -51,24 +69,6 @@ class _PerfilState extends State<Perfil> {
           return const Center(child: CircularProgressIndicator());
         }
     }
-  }
-
-  obtenerMaterias() async {
-    final client = RestClient(Dio(BaseOptions(
-      contentType: Headers.jsonContentType,
-      validateStatus: (_) => true,
-    )));
-    client.getPerfil(arguments.estudianteId.toString()).then((value) {
-      perfilDto = value;
-      setState(() {
-        loading = 1;
-      });
-    }).catchError((Object obj) {
-      setState(() {
-        perfilDto.carrera = obj.toString();
-        loading = 2;
-      });
-    });
   }
 
   Widget listarDatos() {
@@ -91,8 +91,8 @@ class _PerfilState extends State<Perfil> {
         begin: Alignment.topLeft,
         end: Alignment(0.8, 1),
         colors: <Color>[
-          const Color(0xFF00247D),
-          const Color(0xFFF62929),
+           Color(0xFF00247D),
+           Color(0xFFF62929),
         ],
       )),
       // Gradient from htt
@@ -121,7 +121,7 @@ class _PerfilState extends State<Perfil> {
     );
   }
 
-  Widget obtenerDato(IconData icono, String _textoTitulo, String _textoInfo) {
+  Widget obtenerDato(IconData icono, String textoTitulo, String textoInfo) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
       child: Container(
@@ -140,16 +140,16 @@ class _PerfilState extends State<Perfil> {
                 color: const Color(0xFF00247D),
                 size: 30,
               ),
-              textoTitulo(_textoTitulo),
+              getTextoTitulo(textoTitulo),
             ],
           ),
-          textoDato(_textoInfo)
+          textoDato(textoInfo)
         ]),
       ),
     );
   }
 
-  Widget textoTitulo(String texto) {
+  Widget getTextoTitulo(String texto) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
       child: Text(texto,
@@ -184,8 +184,8 @@ class _PerfilState extends State<Perfil> {
                     begin: Alignment.topLeft,
                     end: Alignment(0.8, 1),
                     colors: <Color>[
-                      const Color(0xFF00247D),
-                      const Color(0xFFF62929),
+                       Color(0xFF00247D),
+                       Color(0xFFF62929),
                     ],
                   )),
                   child: getHeader(),
@@ -194,7 +194,7 @@ class _PerfilState extends State<Perfil> {
               ListTile(
                 title: textwidgetblack('Estado De Cuenta'),
                 leading: const Icon(Icons.attach_money_rounded,
-                    color: const Color(0xFF000000)),
+                    color:  Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/estadoCuenta', arguments: arguments);
@@ -203,7 +203,7 @@ class _PerfilState extends State<Perfil> {
               ListTile(
                 title: textwidgetblack('Progreso Académico'),
                 leading: const Icon(Icons.school_rounded,
-                    color: const Color(0xFF000000)),
+                    color:  Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/progresoAcademico', arguments: arguments);
@@ -212,7 +212,7 @@ class _PerfilState extends State<Perfil> {
               ListTile(
                 title: textwidgetblack('Materias de Hoy'),
                 leading: const Icon(Icons.calendar_month_rounded,
-                    color: const Color(0xFF000000)),
+                    color:  Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/materiaHoy', arguments: arguments);
@@ -221,7 +221,7 @@ class _PerfilState extends State<Perfil> {
               ListTile(
                 title: textwidgetblack('Mis Datos'),
                 leading: const Icon(Icons.file_present_rounded,
-                    color: const Color(0xFF000000)),
+                    color:  Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/perfil', arguments: arguments);
@@ -230,7 +230,7 @@ class _PerfilState extends State<Perfil> {
               ListTile(
                 title: textwidgetblack('Cerrar Sesión'),
                 leading: const Icon(Icons.logout_rounded,
-                    color: const Color(0xFF000000)),
+                    color:  Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context).pushNamed('/', arguments: arguments);
                 },

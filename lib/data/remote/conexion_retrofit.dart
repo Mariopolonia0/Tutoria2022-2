@@ -1,9 +1,9 @@
 import 'package:projecto_ucne/models/Dto/materia_dto.dart';
 import 'package:projecto_ucne/models/Dto/perfil_dto.dart';
+import 'package:projecto_ucne/models/Dto/progreso_dto.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:projecto_ucne/models/Dto/login_dto.dart';
-
 import '../../models/Dto/estado_dto.dart';
 
 part 'conexion_retrofit.g.dart';
@@ -23,6 +23,9 @@ abstract class RestClient {
 
   @GET("api/Estudiantes/{id}")
   Future<PerfilDto> getPerfil(@Path("id") String id);
+
+  @GET("api/Progreso/{id}")
+  Future<List<ProgresoDto>> getProgreso(@Path("id") String id);
 
   @POST("api/Login")
   Future<LoginDto> hacerLogin(

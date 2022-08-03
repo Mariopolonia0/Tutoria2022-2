@@ -9,7 +9,7 @@ void main() {
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Ucne Consulta",
-      initialRoute: '/progresoAcademico',
+      initialRoute: '/',
       //aqui van las rutas de las ventanas
       routes: {
         '/': (context) => const LoginScreen(),

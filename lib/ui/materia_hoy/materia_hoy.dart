@@ -173,8 +173,8 @@ class _MateriaHoyState extends State<MateriaHoy> {
                     begin: Alignment.topLeft,
                     end: Alignment(0.8, 1),
                     colors: <Color>[
-                      const Color(0xFF00247D),
-                      const Color(0xFFF62929),
+                     Color(0xFF00247D),
+                     Color(0xFFF62929),
                     ],
                   )),
                   child: getHeader(),
@@ -183,7 +183,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
               ListTile(
                 title: textwidgetblack('Estado De Cuenta'),
                 leading: const Icon(Icons.attach_money_rounded,
-                    color: const Color(0xFF000000)),
+                    color: Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/estadoCuenta', arguments: arguments);
@@ -192,7 +192,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
               ListTile(
                 title: textwidgetblack('Progreso Académico'),
                 leading: const Icon(Icons.school_rounded,
-                    color: const Color(0xFF000000)),
+                    color:  Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/progresoAcademico', arguments: arguments);
@@ -201,7 +201,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
               ListTile(
                 title: textwidgetblack('Materias de Hoy'),
                 leading: const Icon(Icons.calendar_month_rounded,
-                    color: const Color(0xFF000000)),
+                    color:  Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/materiaHoy', arguments: arguments);
@@ -210,7 +210,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
               ListTile(
                 title: textwidgetblack('Mis Datos'),
                 leading: const Icon(Icons.file_present_rounded,
-                    color: const Color(0xFF000000)),
+                    color:  Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/perfil', arguments: arguments);
@@ -219,7 +219,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
               ListTile(
                 title: textwidgetblack('Cerrar Sesión'),
                 leading: const Icon(Icons.logout_rounded,
-                    color: const Color(0xFF000000)),
+                    color:  Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context).pushNamed('/', arguments: arguments);
                 },
