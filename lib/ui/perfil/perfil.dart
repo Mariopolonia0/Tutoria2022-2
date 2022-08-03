@@ -50,11 +50,11 @@ class _PerfilState extends State<Perfil> {
   Widget listarDatos() {
     return Column(children: [
       getSubTitulo(),
-      octenerVista(Icons.badge_outlined, 'Matricula', 'Hola'),
-      octenerVista(Icons.email_outlined, 'Correo Insitucional', 'Hola'),
-      octenerVista(Icons.home_outlined, 'Nacionalidad', 'Hola'),
-      octenerVista(Icons.person, 'Tutor', 'Hola'),
-      octenerVista(Icons.phone_android_rounded, 'Celular', 'Hola'),
+      obtenerDato(Icons.badge_rounded, 'Matricula', arguments.matricula),
+      obtenerDato(Icons.email_rounded, 'Correo Insitucional', ''),
+      obtenerDato(Icons.home_rounded, 'Nacionalidad', 'Hola'),
+      obtenerDato(Icons.person, 'Tutor', 'Hola'),
+      obtenerDato(Icons.phone_android_rounded, 'Celular', 'Hola'),
     ]);
   }
 
@@ -62,7 +62,17 @@ class _PerfilState extends State<Perfil> {
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(8),
-      color: const Color(0xFF00247D),
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment(0.8, 1),
+        colors: <Color>[
+          const Color(0xFF00247D),
+          const Color(0xFFF62929),
+        ],
+      )),
+      // Gradient from htt
+      // color: const Color(0xFF00247D),
       child: Column(
         children: [
           Padding(
@@ -75,7 +85,7 @@ class _PerfilState extends State<Perfil> {
           Text(
             arguments.nombreEstudiante,
             style: const TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           const Text(
             'Ingeniero en Sistemas y Computación',
@@ -87,7 +97,7 @@ class _PerfilState extends State<Perfil> {
     );
   }
 
-  Widget octenerVista(IconData icono, String _textoTitulo, String _textoInfo) {
+  Widget obtenerDato(IconData icono, String _textoTitulo, String _textoInfo) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
       child: Container(
@@ -95,7 +105,7 @@ class _PerfilState extends State<Perfil> {
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(
-            Radius.circular(20),
+            Radius.circular(10),
           ),
         ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -121,7 +131,7 @@ class _PerfilState extends State<Perfil> {
       child: Text(texto,
           style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: Color(0xFF00247D),
+              color: Color.fromARGB(255, 0, 0, 0),
               fontSize: 16)),
     );
   }
