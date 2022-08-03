@@ -1,4 +1,5 @@
 import 'package:projecto_ucne/models/Dto/materia_dto.dart';
+import 'package:projecto_ucne/models/Dto/perfil_dto.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:projecto_ucne/models/Dto/login_dto.dart';
@@ -14,13 +15,16 @@ abstract class RestClient {
   @GET("")
   Future<String> bueno();
 
-  @POST("api/Login")
-  Future<LoginDto> hacerLogin(
-      @Field("usuario") usuario, @Field("password") password);
-
   @GET("api/MateriaHoy/{id}")
   Future<List<MateriaDto>> getMateriaHoy(@Path("id") String id);
 
   @GET("api/Transacciones/{id}")
   Future<List<EstadoDto>> getEstados(@Path("id") String id);
+
+  @GET("api/Estudiantes/{id}")
+  Future<PerfilDto> getPerfil(@Path("id") String id);
+
+  @POST("api/Login")
+  Future<LoginDto> hacerLogin(
+      @Field("usuario") usuario, @Field("password") password);
 }
