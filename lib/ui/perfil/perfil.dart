@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:projecto_ucne/data/remote/conexion_retrofit.dart';
 import 'package:projecto_ucne/models/Dto/login_dto.dart';
+import 'package:projecto_ucne/models/Dto/perfil_dto.dart';
 
 class Perfil extends StatefulWidget {
   const Perfil({super.key});
@@ -9,19 +12,17 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
-  final fonmkey = GlobalKey<FormState>();
-
-  final matriculaController = TextEditingController();
-  final passwordController = TextEditingController();
-
   LoginDto arguments =
       LoginDto(estudianteId: 0, nombreEstudiante: '', matricula: '');
 
   int loading = 0;
 
+  PerfilDto perfilDto = PerfilDto("", "", "", "", "", "");
+
   @override
   Widget build(BuildContext context) {
     arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
+    octenerMaterias();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF91d8f7),
@@ -30,31 +31,49 @@ class _PerfilState extends State<Perfil> {
   }
 
   Widget obtenerVista(BuildContext context) {
-    return listarDatos();
-    /*switch (loading) {
+    switch (loading) {
       case 1:
         {
           return listarDatos();
         }
       case 2:
         {
-          return const Text('Error De Internet');
+          var klk = perfilDto.carrera;
+          return  Text('Error De Internet $klk');
         }
       default:
         {
           return const Center(child: CircularProgressIndicator());
         }
-    }*/
+    }
+  }
+
+  octenerMaterias() async {
+    final client = RestClient(Dio(BaseOptions(
+      contentType: Headers.jsonContentType,
+      validateStatus: (_) => true,
+    )));
+    client.getPerfil(arguments.estudianteId.toString()).then((value) {
+      perfilDto = value;
+      setState(() {
+        loading = 1;
+      });
+    }).catchError((Object obj) {
+      setState(() {
+        perfilDto.carrera = obj.toString();
+        loading = 2;
+      });
+    });
   }
 
   Widget listarDatos() {
     return Column(children: [
       getSubTitulo(),
-      octenerVista(Icons.badge_outlined, 'Matricula', 'Hola'),
-      octenerVista(Icons.email_outlined, 'Correo Insitucional', 'Hola'),
-      octenerVista(Icons.home_outlined, 'Nacionalidad', 'Hola'),
-      octenerVista(Icons.person, 'Tutor', 'Hola'),
-      octenerVista(Icons.phone_android_rounded, 'Celular', 'Hola'),
+      octenerVista(Icons.badge_outlined, 'Matricula', arguments.matricula),
+      octenerVista(Icons.email_outlined, 'Correo Insitucional', perfilDto.correo),
+      octenerVista(Icons.home_outlined, 'Nacionalidad', perfilDto.nacionalidad),
+      octenerVista(Icons.person, 'Tutor', perfilDto.tutor),
+      octenerVista(Icons.phone_android_rounded, 'Celular', perfilDto.celular),
     ]);
   }
 
@@ -73,13 +92,13 @@ class _PerfilState extends State<Perfil> {
             ),
           ),
           Text(
-            arguments.nombreEstudiante,
+            perfilDto.nombrecompleto,
             style: const TextStyle(
                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           ),
-          const Text(
-            'Ingeniero en Sistemas y Computación',
-            style: TextStyle(
+           Text(
+            perfilDto.carrera,
+            style:const TextStyle(
                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ],

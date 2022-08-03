@@ -15,5 +15,5 @@ class MateriaDto {
 
   factory MateriaDto.fromJson(Map<String, dynamic> json) =>
       _$MateriaDtoFromJson(json);
- Map<String, dynamic> toJson() => _$MateriaDtoToJson(this);
+  Map<String, dynamic> toJson() => _$MateriaDtoToJson(this);
 }
