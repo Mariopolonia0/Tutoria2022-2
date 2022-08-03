@@ -24,6 +24,7 @@ class _ProgresoAcademicoState extends State<ProgresoAcademico> {
     return Scaffold(
       backgroundColor: const Color(0xFF91D8F7),
       resizeToAvoidBottomInset: false,
+      drawer: drawerMenuoption2(),
       appBar: AppBar(
           surfaceTintColor: Colors.white,
           backgroundColor: const Color(0xFF00247D),
@@ -63,21 +64,101 @@ class _ProgresoAcademicoState extends State<ProgresoAcademico> {
             sections: sectionsChart),
       ),
     );
+  }
 
-    // switch (loading) {
-    //   case 1:
-    //     {
+  Drawer drawerMenuoption2() {
+    return Drawer(
+      child: Container(
+          color: Colors.white,
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 230,
+                child: DrawerHeader(
+                  decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment(0.8, 1),
+                    colors: <Color>[
+                      const Color(0xFF00247D),
+                      const Color(0xFFF62929),
+                    ],
+                  )),
+                  child: getHeader(),
+                ),
+              ),
+              ListTile(
+                title: textwidgetblack('Estado De Cuenta'),
+                leading: const Icon(Icons.attach_money_rounded,
+                    color: const Color(0xFF000000)),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/estadoCuenta', arguments: arguments);
+                },
+              ),
+              ListTile(
+                title: textwidgetblack('Progreso Académico'),
+                leading: const Icon(Icons.school_rounded,
+                    color: const Color(0xFF000000)),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/progresoAcademico', arguments: arguments);
+                },
+              ),
+              ListTile(
+                title: textwidgetblack('Materias de Hoy'),
+                leading: const Icon(Icons.calendar_month_rounded,
+                    color: const Color(0xFF000000)),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/materiaHoy', arguments: arguments);
+                },
+              ),
+              ListTile(
+                title: textwidgetblack('Mis Datos'),
+                leading: const Icon(Icons.file_present_rounded,
+                    color: const Color(0xFF000000)),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/perfil', arguments: arguments);
+                },
+              ),
+              ListTile(
+                title: textwidgetblack('Cerrar Sesión'),
+                leading: const Icon(Icons.logout_rounded,
+                    color: const Color(0xFF000000)),
+                onTap: () {
+                  Navigator.of(context).pushNamed('/', arguments: arguments);
+                },
+              ),
+            ],
+          )),
+    );
+  }
 
-    //       return Text('klk ${arguments.nombreEstudiante}');
-    //     }
-    //   case 2:
-    //     {
-    //       return const Text('Error De Internet');
-    //     }
-    //   default:
-    //     {
-    //       return const Center(child: CircularProgressIndicator());
-    //     }
-    // }
+  Column getHeader() {
+    return Column(
+      children: [
+        Image.asset(
+          'assets/icon/iconUcne.png',
+          width: 100,
+        ),
+        textwidget(arguments.nombreEstudiante),
+        textwidget(arguments.matricula)
+      ],
+    );
+  }
+
+  Padding textwidget(String text) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child:
+          Text(text, style: const TextStyle(color: Colors.white, fontSize: 20)),
+    );
+  }
+
+  Text textwidgetblack(String text) {
+    return Text(text,
+        style: const TextStyle(color: Colors.black, fontSize: 20));
   }
 }
