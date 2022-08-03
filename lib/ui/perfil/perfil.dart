@@ -22,8 +22,13 @@ class _PerfilState extends State<Perfil> {
   @override
   Widget build(BuildContext context) {
     arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
-    octenerMaterias();
+    obtenerMaterias();
     return Scaffold(
+      drawer: drawerMenuoption2(),
+      appBar: AppBar(
+          surfaceTintColor: Colors.white,
+          backgroundColor: const Color(0xFF00247D),
+          title: const Text('Mis Datos')),
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF91d8f7),
       body: obtenerVista(context),
@@ -39,7 +44,7 @@ class _PerfilState extends State<Perfil> {
       case 2:
         {
           var klk = perfilDto.carrera;
-          return  Text('Error De Internet $klk');
+          return Text('Error De Internet $klk');
         }
       default:
         {
@@ -48,7 +53,7 @@ class _PerfilState extends State<Perfil> {
     }
   }
 
-  octenerMaterias() async {
+  obtenerMaterias() async {
     final client = RestClient(Dio(BaseOptions(
       contentType: Headers.jsonContentType,
       validateStatus: (_) => true,
@@ -69,11 +74,11 @@ class _PerfilState extends State<Perfil> {
   Widget listarDatos() {
     return Column(children: [
       getSubTitulo(),
-      octenerVista(Icons.badge_outlined, 'Matricula', arguments.matricula),
-      octenerVista(Icons.email_outlined, 'Correo Insitucional', perfilDto.correo),
-      octenerVista(Icons.home_outlined, 'Nacionalidad', perfilDto.nacionalidad),
-      octenerVista(Icons.person, 'Tutor', perfilDto.tutor),
-      octenerVista(Icons.phone_android_rounded, 'Celular', perfilDto.celular),
+      obtenerDato(Icons.badge_rounded, 'Matricula', arguments.matricula),
+      obtenerDato(Icons.email_rounded, 'Correo Insitucional', perfilDto.correo),
+      obtenerDato(Icons.home_rounded, 'Nacionalidad', perfilDto.nacionalidad),
+      obtenerDato(Icons.person, 'Tutor', perfilDto.tutor),
+      obtenerDato(Icons.phone_android_rounded, 'Celular', perfilDto.celular),
     ]);
   }
 
@@ -81,11 +86,21 @@ class _PerfilState extends State<Perfil> {
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(8),
-      color: const Color(0xFF00247D),
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment(0.8, 1),
+        colors: <Color>[
+          const Color(0xFF00247D),
+          const Color(0xFFF62929),
+        ],
+      )),
+      // Gradient from htt
+      // color: const Color(0xFF00247D),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 26, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 22, 0, 0),
             child: Image.asset(
               'assets/icon/iconUcne.png',
               width: 100,
@@ -94,11 +109,11 @@ class _PerfilState extends State<Perfil> {
           Text(
             perfilDto.nombrecompleto,
             style: const TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           ),
-           Text(
+          Text(
             perfilDto.carrera,
-            style:const TextStyle(
+            style: const TextStyle(
                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ],
@@ -106,15 +121,15 @@ class _PerfilState extends State<Perfil> {
     );
   }
 
-  Widget octenerVista(IconData icono, String _textoTitulo, String _textoInfo) {
+  Widget obtenerDato(IconData icono, String _textoTitulo, String _textoInfo) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+      padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
       child: Container(
         padding: const EdgeInsets.fromLTRB(12, 4, 12, 4),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(
-            Radius.circular(20),
+            Radius.circular(10),
           ),
         ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -140,7 +155,7 @@ class _PerfilState extends State<Perfil> {
       child: Text(texto,
           style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: Color(0xFF00247D),
+              color: Color.fromARGB(255, 0, 0, 0),
               fontSize: 16)),
     );
   }
@@ -153,5 +168,101 @@ class _PerfilState extends State<Perfil> {
             fontWeight: FontWeight.bold,
           )),
     );
+  }
+
+  Drawer drawerMenuoption2() {
+    return Drawer(
+      child: Container(
+          color: Colors.white,
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 230,
+                child: DrawerHeader(
+                  decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment(0.8, 1),
+                    colors: <Color>[
+                      const Color(0xFF00247D),
+                      const Color(0xFFF62929),
+                    ],
+                  )),
+                  child: getHeader(),
+                ),
+              ),
+              ListTile(
+                title: textwidgetblack('Estado De Cuenta'),
+                leading: const Icon(Icons.attach_money_rounded,
+                    color: const Color(0xFF000000)),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/estadoCuenta', arguments: arguments);
+                },
+              ),
+              ListTile(
+                title: textwidgetblack('Progreso Académico'),
+                leading: const Icon(Icons.school_rounded,
+                    color: const Color(0xFF000000)),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/progresoAcademico', arguments: arguments);
+                },
+              ),
+              ListTile(
+                title: textwidgetblack('Materias de Hoy'),
+                leading: const Icon(Icons.calendar_month_rounded,
+                    color: const Color(0xFF000000)),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/materiaHoy', arguments: arguments);
+                },
+              ),
+              ListTile(
+                title: textwidgetblack('Mis Datos'),
+                leading: const Icon(Icons.file_present_rounded,
+                    color: const Color(0xFF000000)),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/perfil', arguments: arguments);
+                },
+              ),
+              ListTile(
+                title: textwidgetblack('Cerrar Sesión'),
+                leading: const Icon(Icons.logout_rounded,
+                    color: const Color(0xFF000000)),
+                onTap: () {
+                  Navigator.of(context).pushNamed('/', arguments: arguments);
+                },
+              ),
+            ],
+          )),
+    );
+  }
+
+  Column getHeader() {
+    return Column(
+      children: [
+        Image.asset(
+          'assets/icon/iconUcne.png',
+          width: 100,
+        ),
+        textwidget(arguments.nombreEstudiante),
+        textwidget(arguments.matricula)
+      ],
+    );
+  }
+
+  Padding textwidget(String text) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child:
+          Text(text, style: const TextStyle(color: Colors.white, fontSize: 20)),
+    );
+  }
+
+  Text textwidgetblack(String text) {
+    return Text(text,
+        style: const TextStyle(color: Colors.black, fontSize: 20));
   }
 }
