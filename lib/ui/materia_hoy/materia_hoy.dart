@@ -1,5 +1,10 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:http/http.dart';
 import 'package:projecto_ucne/data/remote/conexion_retrofit.dart';
 import '../../models/Dto/login_dto.dart';
 import '../../models/Dto/materia_dto.dart';
@@ -24,7 +29,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
   @override
   Widget build(BuildContext context) {
     arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
-    octenerMaterias();
+    obtenerMaterias();
     return Scaffold(
       backgroundColor: const Color(0xFF91D8F7),
       resizeToAvoidBottomInset: false,
@@ -32,7 +37,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
       appBar: AppBar(
           surfaceTintColor: Colors.white,
           backgroundColor: const Color(0xFF00247D),
-          title: const Text('Materia De Hoy')),
+          title: const Text('Horario')),
       body: obtenerVista(),
     );
   }
@@ -92,19 +97,80 @@ class _MateriaHoyState extends State<MateriaHoy> {
       padding: const EdgeInsets.all(8),
       itemCount: _materiasDtos.length,
       itemBuilder: (BuildContext context, int index) => Padding(
+        padding: const EdgeInsets.all(4),
+        child: Padding(
           padding: const EdgeInsets.all(4),
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(15),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(4),
-              child: getItemMateria(_materiasDtos[index]),
-            ),
-          )),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              getDia(_materiasDtos[index]),
+              Row(mainAxisSize: MainAxisSize.max, children: [
+                Container(
+                    width: MediaQuery.of(context).size.width.round() * 0.91,
+                    padding: const EdgeInsets.all(4),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Container(
+                          child: getItemMateria(_materiasDtos[index]),
+                        ),
+                      ),
+                    )),
+              ]),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Row getDia(MateriaDto materiaDto) {
+    String dia = "";
+    switch (materiaDto.dia) {
+      case "Monday":
+        dia = "Lunes";
+        break;
+
+      case "Tuesday":
+        dia = "Martes";
+        break;
+
+      case "Wednesday":
+        dia = "Miércoles";
+        break;
+
+      case "Thursday":
+        dia = "Jueves";
+        break;
+
+      case "Friday":
+        dia = "Viernes";
+        break;
+
+      case "Saturday":
+        dia = "Sábado";
+        break;
+
+      case "Sunday":
+        dia = "Domingo";
+        break;
+
+      default:
+    }
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        textoDia(
+          dia,
+          color: Colors.black,
+        ),
+      ],
     );
   }
 
@@ -144,7 +210,16 @@ class _MateriaHoyState extends State<MateriaHoy> {
     );
   }
 
-  octenerMaterias() async {
+  Padding textoDia(String texto, {Color color = Colors.black}) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Text(texto,
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: color, fontSize: 24)),
+    );
+  }
+
+  obtenerMaterias() async {
     final client = RestClient(Dio(BaseOptions(
       contentType: Headers.jsonContentType,
       validateStatus: (_) => true,
@@ -166,60 +241,147 @@ class _MateriaHoyState extends State<MateriaHoy> {
           child: ListView(
             children: [
               SizedBox(
-                height: 230,
+                height: 190,
                 child: DrawerHeader(
                   decoration: const BoxDecoration(
                       gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment(0.8, 1),
                     colors: <Color>[
-                      const Color(0xFF00247D),
-                      const Color(0xFFF62929),
+                      Color(0xFF00247D),
+                      Color(0xFFF62929),
                     ],
                   )),
                   child: getHeader(),
                 ),
               ),
+
+              //Academico
               ListTile(
-                title: textwidgetblack('Estado De Cuenta'),
-                leading: const Icon(Icons.attach_money_rounded,
-                    color: const Color(0xFF000000)),
-                onTap: () {
-                  Navigator.of(context)
-                      .pushNamed('/estadoCuenta', arguments: arguments);
-                },
+                horizontalTitleGap: 1,
+                dense: true,
+                title: textMenu('Académico'),
+                leading: const Icon(
+                  Icons.school_rounded,
+                  color: Color(0xFF959494),
+                ),
               ),
+
               ListTile(
-                title: textwidgetblack('Progreso Académico'),
-                leading: const Icon(Icons.school_rounded,
-                    color: const Color(0xFF000000)),
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
+                title: textwidgetblack('Calificaciones'),
+                leading: const Icon(
+                  Icons.event_available_rounded,
+                  color: Color(0xFF000000),
+                ),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/progresoAcademico', arguments: arguments);
                 },
               ),
+
               ListTile(
-                title: textwidgetblack('Materias de Hoy'),
-                leading: const Icon(Icons.calendar_month_rounded,
-                    color: const Color(0xFF000000)),
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
+                title: textwidgetblack('Mi Horario'),
+                leading: const Icon(
+                  Icons.calendar_month_rounded,
+                  color: Color(0xFF000000),
+                ),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/materiaHoy', arguments: arguments);
                 },
               ),
+
               ListTile(
-                title: textwidgetblack('Mis Datos'),
-                leading: const Icon(Icons.file_present_rounded,
-                    color: const Color(0xFF000000)),
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
+                title: textwidgetblack('Notificaciones'),
+                leading: const Icon(
+                  Icons.notifications,
+                  color: Color(0xFF000000),
+                ),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/progresoAcademico', arguments: arguments);
+                },
+              ),
+
+              ListTile(
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
+                title: textwidgetblack('Progreso Académico'),
+                leading: const Icon(
+                  Icons.school_rounded,
+                  color: Color(0xFF000000),
+                ),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/progresoAcademico', arguments: arguments);
+                },
+              ),
+
+              //Balances y pagos
+              ListTile(
+                horizontalTitleGap: 1,
+                dense: true,
+                title: textMenu('Balances y Pagos'),
+                leading: const Icon(
+                  Icons.currency_exchange_rounded,
+                  color: Color(0xFF959494),
+                ),
+              ),
+
+              ListTile(
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
+                title: textwidgetblack('Estado De Cuenta'),
+                leading: const Icon(
+                  Icons.attach_money_rounded,
+                  color: Color(0xFF000000),
+                ),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/estadoCuenta', arguments: arguments);
+                },
+              ),
+
+              //Configuracion
+              ListTile(
+                horizontalTitleGap: 1,
+                dense: true,
+                title: textMenu('Configuración'),
+                leading: const Icon(
+                  Icons.settings_rounded,
+                  color: Color(0xFF959494),
+                ),
+              ),
+              ListTile(
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
+                title: textwidgetblack('Mi perfil'),
+                leading: const Icon(Icons.text_snippet_rounded,
+                    color: Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/perfil', arguments: arguments);
                 },
               ),
               ListTile(
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
                 title: textwidgetblack('Cerrar Sesión'),
-                leading: const Icon(Icons.logout_rounded,
-                    color: const Color(0xFF000000)),
+                leading:
+                    const Icon(Icons.logout_rounded, color: Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context).pushNamed('/', arguments: arguments);
                 },
@@ -235,6 +397,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
         Image.asset(
           'assets/icon/iconUcne.png',
           width: 100,
+          height: 90,
         ),
         textwidget(arguments.nombreEstudiante),
         textwidget(arguments.matricula)
@@ -246,12 +409,20 @@ class _MateriaHoyState extends State<MateriaHoy> {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child:
-          Text(text, style: const TextStyle(color: Colors.white, fontSize: 20)),
+          Text(text, style: const TextStyle(color: Colors.white, fontSize: 18)),
+    );
+  }
+
+  Padding textMenu(String text) {
+    return Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: Text(text,
+          style: const TextStyle(color: Color(0xFF959494), fontSize: 20)),
     );
   }
 
   Text textwidgetblack(String text) {
     return Text(text,
-        style: const TextStyle(color: Colors.black, fontSize: 20));
+        style: const TextStyle(color: Colors.black, fontSize: 18));
   }
 }

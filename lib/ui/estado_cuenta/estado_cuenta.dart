@@ -177,60 +177,147 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
           child: ListView(
             children: [
               SizedBox(
-                height: 230,
+                height: 190,
                 child: DrawerHeader(
                   decoration: const BoxDecoration(
                       gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment(0.8, 1),
                     colors: <Color>[
-                      const Color(0xFF00247D),
-                      const Color(0xFFF62929),
+                      Color(0xFF00247D),
+                      Color(0xFFF62929),
                     ],
                   )),
                   child: getHeader(),
                 ),
               ),
+
+              //Academico
               ListTile(
-                title: textwidgetblack('Estado De Cuenta'),
-                leading: const Icon(Icons.attach_money_rounded,
-                    color: const Color(0xFF000000)),
-                onTap: () {
-                  Navigator.of(context)
-                      .pushNamed('/estadoCuenta', arguments: arguments);
-                },
+                horizontalTitleGap: 1,
+                dense: true,
+                title: textMenu('Académico'),
+                leading: const Icon(
+                  Icons.school_rounded,
+                  color: Color(0xFF959494),
+                ),
               ),
+
               ListTile(
-                title: textwidgetblack('Progreso Académico'),
-                leading: const Icon(Icons.school_rounded,
-                    color: const Color(0xFF000000)),
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
+                title: textwidgetblack('Calificaciones'),
+                leading: const Icon(
+                  Icons.event_available_rounded,
+                  color: Color(0xFF000000),
+                ),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/progresoAcademico', arguments: arguments);
                 },
               ),
+
               ListTile(
-                title: textwidgetblack('Materias de Hoy'),
-                leading: const Icon(Icons.calendar_month_rounded,
-                    color: const Color(0xFF000000)),
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
+                title: textwidgetblack('Mi Horario'),
+                leading: const Icon(
+                  Icons.calendar_month_rounded,
+                  color: Color(0xFF000000),
+                ),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/materiaHoy', arguments: arguments);
                 },
               ),
+
               ListTile(
-                title: textwidgetblack('Mis Datos'),
-                leading: const Icon(Icons.file_present_rounded,
-                    color: const Color(0xFF000000)),
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
+                title: textwidgetblack('Notificaciones'),
+                leading: const Icon(
+                  Icons.notifications,
+                  color: Color(0xFF000000),
+                ),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/progresoAcademico', arguments: arguments);
+                },
+              ),
+
+              ListTile(
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
+                title: textwidgetblack('Progreso Académico'),
+                leading: const Icon(
+                  Icons.school_rounded,
+                  color: Color(0xFF000000),
+                ),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/progresoAcademico', arguments: arguments);
+                },
+              ),
+
+              //Balances y pagos
+              ListTile(
+                horizontalTitleGap: 1,
+                dense: true,
+                title: textMenu('Balances y Pagos'),
+                leading: const Icon(
+                  Icons.currency_exchange_rounded,
+                  color: Color(0xFF959494),
+                ),
+              ),
+
+              ListTile(
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
+                title: textwidgetblack('Estado De Cuenta'),
+                leading: const Icon(
+                  Icons.attach_money_rounded,
+                  color: Color(0xFF000000),
+                ),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('/estadoCuenta', arguments: arguments);
+                },
+              ),
+
+              //Configuracion
+              ListTile(
+                horizontalTitleGap: 1,
+                dense: true,
+                title: textMenu('Configuración'),
+                leading: const Icon(
+                  Icons.settings_rounded,
+                  color: Color(0xFF959494),
+                ),
+              ),
+              ListTile(
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
+                title: textwidgetblack('Mi perfil'),
+                leading: const Icon(Icons.text_snippet_rounded,
+                    color: Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/perfil', arguments: arguments);
                 },
               ),
               ListTile(
+                horizontalTitleGap: 1,
+                dense: true,
+                contentPadding: const EdgeInsets.only(left: 40),
                 title: textwidgetblack('Cerrar Sesión'),
-                leading: const Icon(Icons.logout_rounded,
-                    color: const Color(0xFF000000)),
+                leading:
+                    const Icon(Icons.logout_rounded, color: Color(0xFF000000)),
                 onTap: () {
                   Navigator.of(context).pushNamed('/', arguments: arguments);
                 },
@@ -240,12 +327,21 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
     );
   }
 
+  Padding textMenu(String text) {
+    return Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: Text(text,
+          style: const TextStyle(color: Color(0xFF959494), fontSize: 20)),
+    );
+  }
+
   Column getHeader() {
     return Column(
       children: [
         Image.asset(
           'assets/icon/iconUcne.png',
           width: 100,
+          height: 90,
         ),
         textwidget(arguments.nombreEstudiante),
         textwidget(arguments.matricula)
