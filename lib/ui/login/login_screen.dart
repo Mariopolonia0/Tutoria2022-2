@@ -82,13 +82,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    textFormField(
-                        'Matricula', Icons.person_outline, matriculaController),
+                    textFormField('Matricula', Icons.person_outline,
+                        matriculaController, false),
                     const SizedBox(
                       height: 8,
                     ),
-                    textFormField(
-                        'Contraseña', Icons.key_rounded, passwortController),
+                    textFormField('Contraseña', Icons.key_rounded,
+                        passwortController, true),
                     const SizedBox(
                       height: 8,
                     ),
@@ -126,9 +126,11 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  TextFormField textFormField(
-      String texto, IconData icon, TextEditingController controller) {
+  TextFormField textFormField(String texto, IconData icon,
+      TextEditingController controller, bool ocultar) {
     return TextFormField(
+      obscuringCharacter: "*",
+      obscureText: ocultar,
       controller: controller,
       validator: (value) {
         if (value!.isEmpty) {

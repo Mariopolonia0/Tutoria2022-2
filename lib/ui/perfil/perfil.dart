@@ -28,7 +28,7 @@ class _PerfilState extends State<Perfil> {
       appBar: AppBar(
           surfaceTintColor: Colors.white,
           backgroundColor: const Color(0xFF00247D),
-          title: const Text('Mis Datos')),
+          title: const Text('Mi Perfil')),
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF91d8f7),
       body: obtenerVista(context),

@@ -61,13 +61,13 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
       children: [
         getSubTitulo(),
         Expanded(
-          child: listaMateria(),
+          child: listaEstado(),
         ),
       ],
     );
   }
 
-  Widget listaMateria() {
+  Widget listaEstado() {
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
           balance = formatearMonto(_estados[0].estado);
         }));
@@ -86,12 +86,12 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
                     Radius.circular(15),
                   ),
                 ),
-                child: getItemMateria(_estados[index]),
+                child: getItem(_estados[index]),
               ),
             ));
   }
 
-  Row getItemMateria(EstadoDto estadoDto) {
+  Row getItem(EstadoDto estadoDto) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
