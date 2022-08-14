@@ -194,7 +194,6 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
 
               //Academico
               ListTile(
-
                 horizontalTitleGap: 1,
                 dense: true,
                 title: textMenu('Académico'),
@@ -213,11 +212,6 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
                   Icons.event_available_rounded,
                   color: Color(0xFF000000),
                 ),
-
-                title: textwidgetblack('Estado De Cuenta'),
-                leading: const Icon(Icons.attach_money_rounded,
-                    color:  Color(0xFF000000)),
-
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/progresoAcademico', arguments: arguments);
@@ -259,15 +253,10 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
                 dense: true,
                 contentPadding: const EdgeInsets.only(left: 40),
                 title: textwidgetblack('Progreso Académico'),
-
                 leading: const Icon(
                   Icons.school_rounded,
                   color: Color(0xFF000000),
                 ),
-
-                leading: const Icon(Icons.school_rounded,
-                    color:  Color(0xFF000000)),
-
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/progresoAcademico', arguments: arguments);
@@ -276,7 +265,6 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
 
               //Balances y pagos
               ListTile(
-
                 horizontalTitleGap: 1,
                 dense: true,
                 title: textMenu('Balances y Pagos'),
@@ -295,11 +283,6 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
                   Icons.attach_money_rounded,
                   color: Color(0xFF000000),
                 ),
-
-                title: textwidgetblack('Materias de Hoy'),
-                leading: const Icon(Icons.calendar_month_rounded,
-                    color:  Color(0xFF000000)),
-
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/estadoCuenta', arguments: arguments);
@@ -308,7 +291,6 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
 
               //Configuracion
               ListTile(
-
                 horizontalTitleGap: 1,
                 dense: true,
                 title: textMenu('Configuración'),
@@ -324,10 +306,6 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
                 title: textwidgetblack('Mi perfil'),
                 leading: const Icon(Icons.text_snippet_rounded,
                     color: Color(0xFF000000)),
-               title: textwidgetblack('Mis Datos'),
-                leading: const Icon(Icons.file_present_rounded,
-                    color:  Color(0xFF000000)),
-
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/perfil', arguments: arguments);
@@ -338,13 +316,8 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
                 dense: true,
                 contentPadding: const EdgeInsets.only(left: 40),
                 title: textwidgetblack('Cerrar Sesión'),
-
                 leading:
                     const Icon(Icons.logout_rounded, color: Color(0xFF000000)),
-
-                leading: const Icon(Icons.logout_rounded,
-                    color:  Color(0xFF000000)),
-
                 onTap: () {
                   Navigator.of(context).pushNamed('/', arguments: arguments);
                 },

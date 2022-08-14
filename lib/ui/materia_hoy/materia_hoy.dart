@@ -379,10 +379,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 leading: const Icon(Icons.text_snippet_rounded,
                     color: Color(0xFF000000)),
 
-                title: textwidgetblack('Mis Datos'),
-                leading: const Icon(Icons.file_present_rounded,
-                    color:  Color(0xFF000000)),
-
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/perfil', arguments: arguments);
@@ -397,8 +393,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 leading:
                     const Icon(Icons.logout_rounded, color: Color(0xFF000000)),
 
-                leading: const Icon(Icons.logout_rounded,
-                    color:  Color(0xFF000000)),
 
                 onTap: () {
                   Navigator.of(context).pushNamed('/', arguments: arguments);

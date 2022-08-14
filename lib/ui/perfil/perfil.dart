@@ -220,10 +220,7 @@ class _PerfilState extends State<Perfil> {
                   color: Color(0xFF000000),
                 ),
 
-                title: textwidgetblack('Estado De Cuenta'),
-                leading: const Icon(Icons.attach_money_rounded,
-                    color:  Color(0xFF000000)),
-
+                
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/progresoAcademico', arguments: arguments);
@@ -271,9 +268,7 @@ class _PerfilState extends State<Perfil> {
                   color: Color(0xFF000000),
                 ),
 
-                leading: const Icon(Icons.school_rounded,
-                    color:  Color(0xFF000000)),
-
+              
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/progresoAcademico', arguments: arguments);
@@ -302,10 +297,6 @@ class _PerfilState extends State<Perfil> {
                   color: Color(0xFF000000),
                 ),
 
-                title: textwidgetblack('Materias de Hoy'),
-                leading: const Icon(Icons.calendar_month_rounded,
-                    color:  Color(0xFF000000)),
-
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/estadoCuenta', arguments: arguments);
@@ -331,10 +322,7 @@ class _PerfilState extends State<Perfil> {
                 leading: const Icon(Icons.text_snippet_rounded,
                     color: Color(0xFF000000)),
 
-                title: textwidgetblack('Mis Datos'),
-                leading: const Icon(Icons.file_present_rounded,
-                    color:  Color(0xFF000000)),
-
+              
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/perfil', arguments: arguments);
