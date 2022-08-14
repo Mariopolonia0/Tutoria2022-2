@@ -247,8 +247,10 @@ class _MateriaHoyState extends State<MateriaHoy> {
                     begin: Alignment.topLeft,
                     end: Alignment(0.8, 1),
                     colors: <Color>[
+
                       Color(0xFF00247D),
                       Color(0xFFF62929),
+
                     ],
                   )),
                   child: getHeader(),
@@ -257,6 +259,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
 
               //Academico
               ListTile(
+
                 horizontalTitleGap: 1,
                 dense: true,
                 title: textMenu('Académico'),
@@ -275,6 +278,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
                   Icons.event_available_rounded,
                   color: Color(0xFF000000),
                 ),
+
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/progresoAcademico', arguments: arguments);
@@ -316,10 +320,12 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 dense: true,
                 contentPadding: const EdgeInsets.only(left: 40),
                 title: textwidgetblack('Progreso Académico'),
+
                 leading: const Icon(
                   Icons.school_rounded,
                   color: Color(0xFF000000),
                 ),
+
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/progresoAcademico', arguments: arguments);
@@ -328,6 +334,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
 
               //Balances y pagos
               ListTile(
+
                 horizontalTitleGap: 1,
                 dense: true,
                 title: textMenu('Balances y Pagos'),
@@ -346,6 +353,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
                   Icons.attach_money_rounded,
                   color: Color(0xFF000000),
                 ),
+
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/estadoCuenta', arguments: arguments);
@@ -363,12 +371,18 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 ),
               ),
               ListTile(
+
                 horizontalTitleGap: 1,
                 dense: true,
                 contentPadding: const EdgeInsets.only(left: 40),
                 title: textwidgetblack('Mi perfil'),
                 leading: const Icon(Icons.text_snippet_rounded,
                     color: Color(0xFF000000)),
+
+                title: textwidgetblack('Mis Datos'),
+                leading: const Icon(Icons.file_present_rounded,
+                    color:  Color(0xFF000000)),
+
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/perfil', arguments: arguments);
@@ -379,8 +393,13 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 dense: true,
                 contentPadding: const EdgeInsets.only(left: 40),
                 title: textwidgetblack('Cerrar Sesión'),
+
                 leading:
                     const Icon(Icons.logout_rounded, color: Color(0xFF000000)),
+
+                leading: const Icon(Icons.logout_rounded,
+                    color:  Color(0xFF000000)),
+
                 onTap: () {
                   Navigator.of(context).pushNamed('/', arguments: arguments);
                 },
