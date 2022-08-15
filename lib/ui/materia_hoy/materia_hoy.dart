@@ -247,10 +247,8 @@ class _MateriaHoyState extends State<MateriaHoy> {
                     begin: Alignment.topLeft,
                     end: Alignment(0.8, 1),
                     colors: <Color>[
-
                       Color(0xFF00247D),
                       Color(0xFFF62929),
-
                     ],
                   )),
                   child: getHeader(),
@@ -281,7 +279,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
 
                 onTap: () {
                   Navigator.of(context)
-                      .pushNamed('/progresoAcademico', arguments: arguments);
+                      .pushNamed('/calificaciones', arguments: arguments);
                 },
               ),
 
@@ -311,7 +309,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 ),
                 onTap: () {
                   Navigator.of(context)
-                      .pushNamed('/progresoAcademico', arguments: arguments);
+                      .pushNamed('/', arguments: arguments);
                 },
               ),
 

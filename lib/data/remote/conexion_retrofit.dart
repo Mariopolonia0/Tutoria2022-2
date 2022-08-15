@@ -1,3 +1,4 @@
+import 'package:projecto_ucne/models/Dto/cuatrimestre_dto.dart';
 import 'package:projecto_ucne/models/Dto/materia_dto.dart';
 import 'package:projecto_ucne/models/Dto/perfil_dto.dart';
 import 'package:projecto_ucne/models/Dto/progreso_dto.dart';
@@ -12,9 +13,6 @@ part 'conexion_retrofit.g.dart';
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
-  @GET("")
-  Future<String> bueno();
-
   @GET("api/MateriaHoy/{id}")
   Future<List<MateriaDto>> getMateriaHoy(@Path("id") String id);
 
@@ -23,6 +21,13 @@ abstract class RestClient {
 
   @GET("api/Estudiantes/{id}")
   Future<PerfilDto> getPerfil(@Path("id") String id);
+
+  @GET("api/Cuatrimestre/{id}")
+  Future<List<String>> getListaCuatrimestre(@Path("id") String id);
+
+  @GET("api/Cuatrimestre/{id}/{yeard}")
+  Future<List<CuatrimestreDto>> getMateriaCuatrimestre(
+      @Path("id") String id, @Path("yeard") String yeard);
 
   @GET("api/Progreso/{id}")
   Future<List<ProgresoDto>> getProgreso(@Path("id") String id);
