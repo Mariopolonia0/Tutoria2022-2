@@ -168,22 +168,27 @@ class _CalificacionesState extends State<Calificaciones> {
                             fontSize: 20,
                             fontWeight: FontWeight.bold),
                       ),
-                      Row(
-                        children: const [
-                          Icon(
-                            Icons.bar_chart_outlined,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                          Text(
-                            'Ver Indice',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      )
+                      SizedBox(
+                        height: 40,
+                        child: TextButton.icon(
+                            onPressed: () {
+                              arguments.nombreEstudiante = list[0].cuatrimestreId.toString();
+                              Navigator.of(context)
+                                  .pushNamed('/indice', arguments: arguments);
+                            },
+                            icon: const Icon(
+                              Icons.bar_chart_outlined,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                            label: const Text(
+                              'Ver Indice',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                      ),
                     ]),
               ),
             ),
@@ -282,7 +287,8 @@ class _CalificacionesState extends State<Calificaciones> {
       alignment: Alignment.center,
       color: const Color(0xFF00247D),
       child: Container(
-        padding:const EdgeInsets.fromLTRB(10, 0, 10, 0),
+        height: 40,
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(
@@ -301,7 +307,7 @@ class _CalificacionesState extends State<Calificaciones> {
               value: value,
               child: Text(
                 value,
-                style: const TextStyle(color: Color(0xFF00247D)),
+                style: const TextStyle(color: Color(0xFF00247D),fontWeight: FontWeight.bold),
               ),
             );
           }).toList(),

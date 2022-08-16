@@ -257,7 +257,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
 
               //Academico
               ListTile(
-
                 horizontalTitleGap: 1,
                 dense: true,
                 title: textMenu('Académico'),
