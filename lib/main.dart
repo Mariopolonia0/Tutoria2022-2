@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projecto_ucne/ui/calificaciones/calificaciones.dart';
 import 'package:projecto_ucne/ui/estado_cuenta/estado_cuenta.dart';
+import 'package:projecto_ucne/ui/indice/indice.dart';
 import 'package:projecto_ucne/ui/login/login_screen.dart';
 import 'package:projecto_ucne/ui/materia_hoy/materia_hoy.dart';
 import 'package:projecto_ucne/ui/perfil/perfil.dart';
@@ -18,6 +19,7 @@ void main() {
         '/perfil': (context) => const Perfil(),
         '/estadoCuenta': (context) => const EstadoCuenta(),
         '/progresoAcademico': (context) => const ProgresoAcademico(),
-        '/calificaciones': (context) => const Calificaciones()
+        '/calificaciones': (context) => const Calificaciones(),
+        '/indice': (context) => const Indice()
       }));
 }

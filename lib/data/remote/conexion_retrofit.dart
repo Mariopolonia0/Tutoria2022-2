@@ -1,4 +1,5 @@
 import 'package:projecto_ucne/models/Dto/cuatrimestre_dto.dart';
+import 'package:projecto_ucne/models/Dto/indice_dto.dart';
 import 'package:projecto_ucne/models/Dto/materia_dto.dart';
 import 'package:projecto_ucne/models/Dto/perfil_dto.dart';
 import 'package:projecto_ucne/models/Dto/progreso_dto.dart';
@@ -28,6 +29,10 @@ abstract class RestClient {
   @GET("api/Cuatrimestre/{id}/{yeard}")
   Future<List<CuatrimestreDto>> getMateriaCuatrimestre(
       @Path("id") String id, @Path("yeard") String yeard);
+
+  @GET("api/Indice/{id}/{cuatrimestreId}")
+  Future<IndiceDto> getIndice(
+      @Path("id") String id, @Path("cuatrimestreId") String cuatrimestreId);
 
   @GET("api/Progreso/{id}")
   Future<List<ProgresoDto>> getProgreso(@Path("id") String id);

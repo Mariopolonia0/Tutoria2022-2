@@ -104,6 +104,22 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<IndiceDto> getIndice(id, cuatrimestreId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<IndiceDto>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'api/Indice/${id}/${cuatrimestreId}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = IndiceDto.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<List<ProgresoDto>> getProgreso(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
