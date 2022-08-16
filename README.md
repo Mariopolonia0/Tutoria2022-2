@@ -2,6 +2,3 @@
 
 projec programacion III
 
-## Getting Started
-
-klk menol
