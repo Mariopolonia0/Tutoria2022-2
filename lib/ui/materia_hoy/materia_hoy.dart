@@ -19,6 +19,8 @@ class _MateriaHoyState extends State<MateriaHoy> {
   final fonmKey = GlobalKey<FormState>();
 
   int loading = 0;
+  int loading2 = 0;
+  int contador = 0;
 
   LoginDto arguments =
       LoginDto(estudianteId: 0, nombreEstudiante: '', matricula: '');
@@ -42,11 +44,12 @@ class _MateriaHoyState extends State<MateriaHoy> {
   }
 
   Widget obtenerVista() {
+    List<MateriaDto> listaNueva = organizarMaterias(_materiasDtos);
     switch (loading) {
       case 1:
         {
-          if (_materiasDtos.isNotEmpty) {
-            return listaMateria();
+          if (listaNueva.isNotEmpty) {
+            return listaMateria(listaNueva);
           } else {
             return Center(
                 child: Padding(
@@ -91,10 +94,10 @@ class _MateriaHoyState extends State<MateriaHoy> {
     );
   }
 
-  Widget listaMateria() {
+  Widget listaMateria(List<MateriaDto> lista) {
     return ListView.builder(
       padding: const EdgeInsets.all(8),
-      itemCount: _materiasDtos.length,
+      itemCount: lista.length,
       itemBuilder: (BuildContext context, int index) => Padding(
         padding: const EdgeInsets.all(4),
         child: Padding(
@@ -102,7 +105,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              getDia(_materiasDtos[index]),
+              getDia(lista[index]),
               Row(mainAxisSize: MainAxisSize.max, children: [
                 Container(
                     width: MediaQuery.of(context).size.width.round() * 0.91,
@@ -117,7 +120,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
                       child: Padding(
                         padding: const EdgeInsets.all(4),
                         child: Container(
-                          child: getItemMateria(_materiasDtos[index]),
+                          child: getItemMateria(lista[index]),
                         ),
                       ),
                     )),
@@ -131,6 +134,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
 
   Row getDia(MateriaDto materiaDto) {
     String dia = "";
+
     switch (materiaDto.dia) {
       case "Monday":
         dia = "Lunes";
@@ -162,6 +166,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
 
       default:
     }
+
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [
@@ -233,6 +238,31 @@ class _MateriaHoyState extends State<MateriaHoy> {
     });
   }
 
+  List<MateriaDto> organizarMaterias(List<MateriaDto> materiaDto) {
+    List<MateriaDto> materiasCopia = List<MateriaDto>.empty(growable: true);
+    List<MateriaDto> listaMateria = List<MateriaDto>.empty(growable: true);
+    materiasCopia.addAll(materiaDto);
+
+    List<String> dias = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ];
+
+    for (int i = 0; i < 7; i++) {
+      if (materiasCopia.any((element) => element.dia == dias[i]) == true) {
+        listaMateria
+            .addAll(materiasCopia.where((element) => element.dia == dias[i]));
+      }
+    }
+
+    return listaMateria;
+  }
+
   Drawer drawerMenuoption2() {
     return Drawer(
       child: Container(
@@ -275,7 +305,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
                   Icons.event_available_rounded,
                   color: Color(0xFF000000),
                 ),
-
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/calificaciones', arguments: arguments);
@@ -307,8 +336,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
                   color: Color(0xFF000000),
                 ),
                 onTap: () {
-                  Navigator.of(context)
-                      .pushNamed('/', arguments: arguments);
+                  Navigator.of(context).pushNamed('/', arguments: arguments);
                 },
               ),
 
@@ -317,12 +345,10 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 dense: true,
                 contentPadding: const EdgeInsets.only(left: 40),
                 title: textwidgetblack('Progreso Académico'),
-
                 leading: const Icon(
                   Icons.school_rounded,
                   color: Color(0xFF000000),
                 ),
-
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/progresoAcademico', arguments: arguments);
@@ -331,7 +357,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
 
               //Balances y pagos
               ListTile(
-
                 horizontalTitleGap: 1,
                 dense: true,
                 title: textMenu('Balances y Pagos'),
@@ -350,7 +375,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
                   Icons.attach_money_rounded,
                   color: Color(0xFF000000),
                 ),
-
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/estadoCuenta', arguments: arguments);
@@ -368,14 +392,12 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 ),
               ),
               ListTile(
-
                 horizontalTitleGap: 1,
                 dense: true,
                 contentPadding: const EdgeInsets.only(left: 40),
                 title: textwidgetblack('Mi perfil'),
                 leading: const Icon(Icons.text_snippet_rounded,
                     color: Color(0xFF000000)),
-
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/perfil', arguments: arguments);
@@ -386,11 +408,8 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 dense: true,
                 contentPadding: const EdgeInsets.only(left: 40),
                 title: textwidgetblack('Cerrar Sesión'),
-
                 leading:
                     const Icon(Icons.logout_rounded, color: Color(0xFF000000)),
-
-
                 onTap: () {
                   Navigator.of(context).pushNamed('/', arguments: arguments);
                 },
