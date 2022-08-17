@@ -124,26 +124,44 @@ class _CalificacionesState extends State<Calificaciones> {
   }
 
   Widget obtenerVistaCuatrimestre() {
+    //lista para poner la materia por cuatrimestre
+    List<CuatrimestreDto> list1 = List.empty(growable: true);
+    List<CuatrimestreDto> list2 = List.empty(growable: true);
+    List<CuatrimestreDto> list3 = List.empty(growable: true);
+    //aqui ordeno la lista por cuatrimestre
+    for (var items in listaCuatrimestre!) {
+      switch (items.numeroCuatrimestre) {
+        case '3':
+          list3.add(items);
+          break;
+        case '2':
+          list2.add(items);
+          break;
+        case '1':
+          list1.add(items);
+          break;
+        default:
+      }
+    }
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            pintarCalificaciones('3'),
-            pintarCalificaciones('2'),
-            pintarCalificaciones('1'),
+            //si la lista esta vacia no imprimimos el contenedor
+            (list3.isNotEmpty) ? pintarCalificaciones('3', list3) : vacio(),
+            (list2.isNotEmpty) ? pintarCalificaciones('2', list2) : vacio(),
+            (list1.isNotEmpty) ? pintarCalificaciones('1', list1) : vacio()
           ],
         ),
       ),
     );
   }
 
-  Widget pintarCalificaciones(String trimestre) {
-    List<CuatrimestreDto> list = List.empty(growable: true);
-    for (var items in listaCuatrimestre!) {
-      if (items.numeroCuatrimestre == trimestre) {
-        list.add(items);
-      }
-    }
+  Widget vacio() {
+    return const SizedBox.shrink();
+  }
+
+  Widget pintarCalificaciones(String trimestre, List<CuatrimestreDto> list) {
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -172,7 +190,8 @@ class _CalificacionesState extends State<Calificaciones> {
                         height: 40,
                         child: TextButton.icon(
                             onPressed: () {
-                              arguments.nombreEstudiante = list[0].cuatrimestreId.toString();
+                              arguments.nombreEstudiante =
+                                  list[0].cuatrimestreId.toString();
                               Navigator.of(context)
                                   .pushNamed('/indice', arguments: arguments);
                             },
@@ -263,20 +282,28 @@ class _CalificacionesState extends State<Calificaciones> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(width: 180, child: Text(cuatrimestreDto.nombreMateria)),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(cuatrimestreDto.nota),
-                  SizedBox(
-                      width: 20, child: Text(cuatrimestreDto.calificacion)),
-                ],
-              ),
-            ),
-          )
+          (int.parse(cuatrimestreDto.nota) < 69)
+              ? getNota(cuatrimestreDto.nota, cuatrimestreDto.calificacion,
+                  color: const Color(0xFFEC1C24))
+              : getNota(cuatrimestreDto.nota, cuatrimestreDto.calificacion)
         ],
+      ),
+    );
+  }
+
+  Widget getNota(String nota, calificacion, {Color? color = Colors.black}) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(nota, style: TextStyle(color: color)),
+            SizedBox(
+                width: 20,
+                child: Text(calificacion, style: TextStyle(color: color))),
+          ],
+        ),
       ),
     );
   }
@@ -307,7 +334,8 @@ class _CalificacionesState extends State<Calificaciones> {
               value: value,
               child: Text(
                 value,
-                style: const TextStyle(color: Color(0xFF00247D),fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    color: Color(0xFF00247D), fontWeight: FontWeight.bold),
               ),
             );
           }).toList(),
