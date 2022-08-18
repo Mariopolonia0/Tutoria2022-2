@@ -61,46 +61,49 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Form formulario(BuildContext context) {
     return Form(
-      key: fonmKey,
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            texto(),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(25, 0, 30, 0),
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(30),
-                  ),
-                ),
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    textFormField('Matricula', Icons.person_outline,
-                        matriculaController, false),
-                    const SizedBox(
-                      height: 8,
+        key: fonmKey,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  texto(),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 0, 30, 0),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30),
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          textFormField('Matricula', Icons.person_outline,
+                              matriculaController, false),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          textFormField('Contraseña', Icons.key_rounded,
+                              passwortController, true),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          buttonLogin(context),
+                        ],
+                      ),
                     ),
-                    textFormField('Contraseña', Icons.key_rounded,
-                        passwortController, true),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    buttonLogin(context),
-                  ],
-                ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
-      ),
-    );
+            ),
+          ),
+        ));
   }
 
   Widget texto() {

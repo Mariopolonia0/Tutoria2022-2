@@ -71,11 +71,8 @@ class _CalificacionesState extends State<Calificaciones> {
         }
       default:
         {
-          return const Center(
-            child: Padding(
-              padding: EdgeInsets.all(30.0),
-              child: CircularProgressIndicator(),
-            ),
+          return const Expanded(
+            child: Center(child: CircularProgressIndicator()),
           );
         }
     }

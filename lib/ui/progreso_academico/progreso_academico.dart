@@ -72,17 +72,19 @@ class _ProgresoAcademicoState extends State<ProgresoAcademico> {
   }
 
   Widget vista() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        getVista(_progresos[0]),
-        getVista(_progresos[1]),
-        getFiguraPastel(
-            (_progresos[0].materiaAprobada + _progresos[1].materiaAprobada)
-                .toDouble(),
-            (_progresos[0].materiaPendiente + _progresos[1].materiaPendiente)
-                .toDouble())
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          getVista(_progresos[0]),
+          getVista(_progresos[1]),
+          getFiguraPastel(
+              (_progresos[0].materiaAprobada + _progresos[1].materiaAprobada)
+                  .toDouble(),
+              (_progresos[0].materiaPendiente + _progresos[1].materiaPendiente)
+                  .toDouble())
+        ],
+      ),
     );
   }
 
