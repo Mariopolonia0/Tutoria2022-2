@@ -72,7 +72,8 @@ class _ProgresoAcademicoState extends State<ProgresoAcademico> {
   }
 
   Widget vista() {
-    return Column(
+    return SingleChildScrollView(
+        child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         getVista(_progresos[0]),
@@ -83,7 +84,7 @@ class _ProgresoAcademicoState extends State<ProgresoAcademico> {
             (_progresos[0].materiaPendiente + _progresos[1].materiaPendiente)
                 .toDouble())
       ],
-    );
+    ));
   }
 
   Widget getVista(ProgresoDto progresoDto) {

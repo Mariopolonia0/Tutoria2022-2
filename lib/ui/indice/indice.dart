@@ -58,10 +58,11 @@ class _IndiceState extends State<Indice> {
   }
 
   Widget vistaIndice() {
-    return Padding(
+    return SingleChildScrollView(
+        child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
-          height: 180,
+          height: 190,
           padding: const EdgeInsets.all(8),
           decoration: const BoxDecoration(
             color: Colors.white,
@@ -72,7 +73,7 @@ class _IndiceState extends State<Indice> {
           child: Column(
             children: [getPeriodo(), getIndices()],
           )),
-    );
+    ));
   }
 
   Widget getPeriodo() {
