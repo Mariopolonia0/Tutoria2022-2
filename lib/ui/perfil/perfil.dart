@@ -228,7 +228,7 @@ class _PerfilState extends State<Perfil> {
                 ),
                 onTap: () {
                   Navigator.of(context)
-                      .pushNamed('/progresoAcademico', arguments: arguments);
+                      .pushNamed('/calificaciones', arguments: arguments);
                 },
               ),
 

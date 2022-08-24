@@ -15,6 +15,8 @@ class _MateriaHoyState extends State<MateriaHoy> {
   final fonmKey = GlobalKey<FormState>();
 
   int loading = 0;
+  int loading2 = 0;
+  int contador = 0;
 
   LoginDto arguments =
       LoginDto(estudianteId: 0, nombreEstudiante: '', matricula: '');
@@ -38,11 +40,14 @@ class _MateriaHoyState extends State<MateriaHoy> {
   }
 
   Widget obtenerVista() {
+    List<MateriaDto> listaNueva = organizarMaterias(_materiasDtos);
     switch (loading) {
       case 1:
         {
+
           if (_listMateriasDtos.isNotEmpty) {
             return pintarMateriaPorDia();
+
           } else {
             return Center(
               child: Padding(
@@ -63,6 +68,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
     }
   }
 
+
   Widget pintarMateriaPorDia() {
     //el expande hacer que el column coja la pantalla disponible
     //SingleChildScrollView es para hacer scrool
@@ -80,16 +86,19 @@ class _MateriaHoyState extends State<MateriaHoy> {
             pintarMaterias('Sábado', 'Saturday'),
             pintarMaterias('Domingo', 'Sunday')
           ],
+
         ),
       ),
     );
   }
+
 
   Widget pintarMaterias(String diaSpanish, diaEnglish) {
     //esta funcion organiza una lista cnon los dia que sean iguales
     //y llena un column con esa lista y si la lista queda bacia
     //el widget retorna un widget vacio
     List<MateriaDto> list = List.empty(growable: true);
+
 
     for (var item in _listMateriasDtos) {
       if (item.dia == diaEnglish) list.add(item);
@@ -113,6 +122,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
   Widget vacio() {
     return const SizedBox.shrink();
   }
+
 
   Widget fondoMateria(MateriaDto materiaDto) {
     return Container(
@@ -197,6 +207,7 @@ class _MateriaHoyState extends State<MateriaHoy> {
       const Text('Error de Internet');
     });
   }
+
 
   Widget getNotieneMateria() {
     return Column(
@@ -414,47 +425,3 @@ class _MateriaHoyState extends State<MateriaHoy> {
         style: const TextStyle(color: Colors.black, fontSize: 18));
   }
 }
-
-// Row getDia(MateriaDto materiaDto) {
-//   String dia = "";
-//   switch (materiaDto.dia) {
-//     case "Monday":
-//       dia = "Lunes";
-//       break;
-
-//     case "Tuesday":
-//       dia = "Martes";
-//       break;
-
-//     case "Wednesday":
-//       dia = "Miércoles";
-//       break;
-
-//     case "Thursday":
-//       dia = "Jueves";
-//       break;
-
-//     case "Friday":
-//       dia = "Viernes";
-//       break;
-
-//     case "Saturday":
-//       dia = "Sábado";
-//       break;
-
-//     case "Sunday":
-//       dia = "Domingo";
-//       break;
-
-//     default:
-//   }
-//   return Row(
-//     mainAxisSize: MainAxisSize.max,
-//     children: [
-//       textoDia(
-//         dia,
-//         color: Colors.black,
-//       ),
-//     ],
-//   );
-// }
