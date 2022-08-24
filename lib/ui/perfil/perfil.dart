@@ -72,15 +72,26 @@ class _PerfilState extends State<Perfil> {
   }
 
   Widget listarDatos() {
-    return ListView(
+    return Column(
       children: [
         getSubTitulo(),
-        obtenerDato(Icons.badge_rounded, 'Matricula', arguments.matricula),
-        obtenerDato(
-            Icons.email_rounded, 'Correo Insitucional', perfilDto.correo),
-        obtenerDato(Icons.home_rounded, 'Nacionalidad', perfilDto.nacionalidad),
-        obtenerDato(Icons.person, 'Tutor', perfilDto.tutor),
-        obtenerDato(Icons.phone_android_rounded, 'Celular', perfilDto.celular),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                obtenerDato(
+                    Icons.badge_rounded, 'Matricula', arguments.matricula),
+                obtenerDato(Icons.email_rounded, 'Correo Insitucional',
+                    perfilDto.correo),
+                obtenerDato(
+                    Icons.home_rounded, 'Nacionalidad', perfilDto.nacionalidad),
+                obtenerDato(Icons.person, 'Tutor', perfilDto.tutor),
+                obtenerDato(
+                    Icons.phone_android_rounded, 'Celular', perfilDto.celular),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
