@@ -40,14 +40,12 @@ class _MateriaHoyState extends State<MateriaHoy> {
   }
 
   Widget obtenerVista() {
-    List<MateriaDto> listaNueva = organizarMaterias(_materiasDtos);
+    //List<MateriaDto> listaNueva = organizarMaterias(_materiasDtos);
     switch (loading) {
       case 1:
         {
-
           if (_listMateriasDtos.isNotEmpty) {
             return pintarMateriaPorDia();
-
           } else {
             return Center(
               child: Padding(
@@ -68,7 +66,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
     }
   }
 
-
   Widget pintarMateriaPorDia() {
     //el expande hacer que el column coja la pantalla disponible
     //SingleChildScrollView es para hacer scrool
@@ -86,19 +83,16 @@ class _MateriaHoyState extends State<MateriaHoy> {
             pintarMaterias('Sábado', 'Saturday'),
             pintarMaterias('Domingo', 'Sunday')
           ],
-
         ),
       ),
     );
   }
-
 
   Widget pintarMaterias(String diaSpanish, diaEnglish) {
     //esta funcion organiza una lista cnon los dia que sean iguales
     //y llena un column con esa lista y si la lista queda bacia
     //el widget retorna un widget vacio
     List<MateriaDto> list = List.empty(growable: true);
-
 
     for (var item in _listMateriasDtos) {
       if (item.dia == diaEnglish) list.add(item);
@@ -122,7 +116,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
   Widget vacio() {
     return const SizedBox.shrink();
   }
-
 
   Widget fondoMateria(MateriaDto materiaDto) {
     return Container(
@@ -207,7 +200,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
       const Text('Error de Internet');
     });
   }
-
 
   Widget getNotieneMateria() {
     return Column(
