@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:projecto_ucne/data/remote/conexion_retrofit.dart';
 import 'package:projecto_ucne/models/Dto/indice_dto.dart';
-import '../../models/Dto/login_dto.dart';
+import '../../models/Dto/cuatrimestre_indice.dart';
 
 class Indice extends StatefulWidget {
   const Indice({super.key});
@@ -16,14 +16,15 @@ class _IndiceState extends State<Indice> {
 
   int loading = 0;
 
-  LoginDto arguments =
-      LoginDto(estudianteId: 0, nombreEstudiante: '', matricula: '');
+  CuatrimestreIndice arguments =
+      CuatrimestreIndice(estudianteId: 0, cuatrimestreId: 0);
 
   IndiceDto? indiceDto;
 
   @override
   Widget build(BuildContext context) {
-    arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
+    arguments =
+        ModalRoute.of(context)!.settings.arguments as CuatrimestreIndice;
     obtenerIndice();
     return Scaffold(
         backgroundColor: const Color(0xFF91D8F7),
@@ -43,7 +44,11 @@ class _IndiceState extends State<Indice> {
         }
       case 2:
         {
-          return const Center(child: Text('Error De Internet'));
+          return Center(
+              child: Text('Error De Internet ' +
+                  arguments.cuatrimestreId.toString() +
+                  '-' +
+                  arguments.estudianteId.toString()));
         }
       default:
         {
@@ -168,8 +173,8 @@ class _IndiceState extends State<Indice> {
       validateStatus: (_) => true,
     )));
     client
-        .getIndice(
-            arguments.estudianteId.toString(), arguments.nombreEstudiante)
+        .getIndice(arguments.estudianteId.toString(),
+            arguments.cuatrimestreId.toString())
         .then((value) {
       indiceDto = value;
       setState(() {
