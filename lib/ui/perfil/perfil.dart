@@ -251,21 +251,6 @@ class _PerfilState extends State<Perfil> {
                 horizontalTitleGap: 1,
                 dense: true,
                 contentPadding: const EdgeInsets.only(left: 40),
-                title: textwidgetblack('Notificaciones'),
-                leading: const Icon(
-                  Icons.notifications,
-                  color: Color(0xFF000000),
-                ),
-                onTap: () {
-                  Navigator.of(context)
-                      .pushNamed('/progresoAcademico', arguments: arguments);
-                },
-              ),
-
-              ListTile(
-                horizontalTitleGap: 1,
-                dense: true,
-                contentPadding: const EdgeInsets.only(left: 40),
                 title: textwidgetblack('Progreso Académico'),
                 leading: const Icon(
                   Icons.school_rounded,

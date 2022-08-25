@@ -73,6 +73,7 @@ class _ProgresoAcademicoState extends State<ProgresoAcademico> {
 
   Widget vista() {
     return SingleChildScrollView(
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

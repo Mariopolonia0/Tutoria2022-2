@@ -27,7 +27,7 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
   @override
   Widget build(BuildContext context) {
     arguments = ModalRoute.of(context)!.settings.arguments as LoginDto;
-    octenerMaterias();
+    obtenerMaterias();
     return Scaffold(
         backgroundColor: const Color(0xFF91D8F7),
         resizeToAvoidBottomInset: false,
@@ -140,7 +140,7 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
     return texto.split('T')[0];
   }
 
-  octenerMaterias() async {
+  obtenerMaterias() async {
     final client = RestClient(Dio(BaseOptions(
       contentType: Headers.jsonContentType,
       validateStatus: (_) => true,
@@ -214,7 +214,7 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
                 ),
                 onTap: () {
                   Navigator.of(context)
-                      .pushNamed('/progresoAcademico', arguments: arguments);
+                      .pushNamed('/calificaciones', arguments: arguments);
                 },
               ),
 
@@ -230,21 +230,6 @@ class _EstadoCuentaState extends State<EstadoCuenta> {
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('/materiaHoy', arguments: arguments);
-                },
-              ),
-
-              ListTile(
-                horizontalTitleGap: 1,
-                dense: true,
-                contentPadding: const EdgeInsets.only(left: 40),
-                title: textwidgetblack('Notificaciones'),
-                leading: const Icon(
-                  Icons.notifications,
-                  color: Color(0xFF000000),
-                ),
-                onTap: () {
-                  Navigator.of(context)
-                      .pushNamed('/progresoAcademico', arguments: arguments);
                 },
               ),
 

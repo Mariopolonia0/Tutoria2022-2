@@ -15,8 +15,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
   final fonmKey = GlobalKey<FormState>();
 
   int loading = 0;
-  int loading2 = 0;
-  int contador = 0;
 
   LoginDto arguments =
       LoginDto(estudianteId: 0, nombreEstudiante: '', matricula: '');
@@ -40,7 +38,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
   }
 
   Widget obtenerVista() {
-    //List<MateriaDto> listaNueva = organizarMaterias(_materiasDtos);
     switch (loading) {
       case 1:
         {
@@ -293,20 +290,6 @@ class _MateriaHoyState extends State<MateriaHoy> {
                 horizontalTitleGap: 1,
                 dense: true,
                 contentPadding: const EdgeInsets.only(left: 40),
-                title: textwidgetblack('Notificaciones'),
-                leading: const Icon(
-                  Icons.notifications,
-                  color: Color(0xFF000000),
-                ),
-                onTap: () {
-                  Navigator.of(context).pushNamed('/', arguments: arguments);
-                },
-              ),
-
-              ListTile(
-                horizontalTitleGap: 1,
-                dense: true,
-                contentPadding: const EdgeInsets.only(left: 40),
                 title: textwidgetblack('Progreso Académico'),
                 leading: const Icon(
                   Icons.school_rounded,
@@ -416,4 +399,4 @@ class _MateriaHoyState extends State<MateriaHoy> {
     return Text(text,
         style: const TextStyle(color: Colors.black, fontSize: 18));
   }
-}
+ }
