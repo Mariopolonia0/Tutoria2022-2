@@ -14,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final fonmKey = GlobalKey<FormState>();
 
-  final matriculaController = TextEditingController();
+  final userController = TextEditingController();
 
   final passwortController = TextEditingController();
 
@@ -36,13 +36,13 @@ class _LoginScreenState extends State<LoginScreen> {
     )));
 
     client
-        .hacerLogin(matriculaController.text, passwortController.text)
+        .hacerLogin(userController.text, passwortController.text)
         .then((login) {
       setState(() {
         loading = false;
       });
       if (login.estudianteId == 0) {
-        desactivarprogress('Matricula y contraseña incorrecto');
+        desactivarprogress('Usuario o contraseña incorrectos');
       } else {
         Navigator.of(context).popAndPushNamed('/materiaHoy', arguments: login);
       }
@@ -83,8 +83,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    textFormField('Matricula', Icons.person_outline,
-                        matriculaController, false),
+                    textFormField(
+                        'Usuario', Icons.person_outline, userController, false),
                     const SizedBox(
                       height: 8,
                     ),
