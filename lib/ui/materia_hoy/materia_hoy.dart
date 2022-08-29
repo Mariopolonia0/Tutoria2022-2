@@ -399,48 +399,4 @@ class _MateriaHoyState extends State<MateriaHoy> {
     return Text(text,
         style: const TextStyle(color: Colors.black, fontSize: 18));
   }
-}
-
-// Row getDia(MateriaDto materiaDto) {
-//   String dia = "";
-//   switch (materiaDto.dia) {
-//     case "Monday":
-//       dia = "Lunes";
-//       break;
-
-//     case "Tuesday":
-//       dia = "Martes";
-//       break;
-
-//     case "Wednesday":
-//       dia = "Miércoles";
-//       break;
-
-//     case "Thursday":
-//       dia = "Jueves";
-//       break;
-
-//     case "Friday":
-//       dia = "Viernes";
-//       break;
-
-//     case "Saturday":
-//       dia = "Sábado";
-//       break;
-
-//     case "Sunday":
-//       dia = "Domingo";
-//       break;
-
-//     default:
-//   }
-//   return Row(
-//     mainAxisSize: MainAxisSize.max,
-//     children: [
-//       textoDia(
-//         dia,
-//         color: Colors.black,
-//       ),
-//     ],
-//   );
-// }
+ }

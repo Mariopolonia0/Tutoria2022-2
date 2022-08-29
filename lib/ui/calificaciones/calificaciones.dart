@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:projecto_ucne/data/remote/conexion_retrofit.dart';
 import 'package:projecto_ucne/models/Dto/cuatrimestre_dto.dart';
+import 'package:projecto_ucne/models/Dto/cuatrimestre_indice.dart';
 import '../../models/Dto/login_dto.dart';
 
 class Calificaciones extends StatefulWidget {
@@ -71,11 +72,8 @@ class _CalificacionesState extends State<Calificaciones> {
         }
       default:
         {
-          return const Center(
-            child: Padding(
-              padding: EdgeInsets.all(30.0),
-              child: CircularProgressIndicator(),
-            ),
+          return const Expanded(
+            child: Center(child: CircularProgressIndicator()),
           );
         }
     }
@@ -189,24 +187,27 @@ class _CalificacionesState extends State<Calificaciones> {
                       SizedBox(
                         height: 40,
                         child: TextButton.icon(
-                            onPressed: () {
-                              arguments.nombreEstudiante =
-                                  list[0].cuatrimestreId.toString();
-                              Navigator.of(context)
-                                  .pushNamed('/indice', arguments: arguments);
-                            },
-                            icon: const Icon(
-                              Icons.bar_chart_outlined,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                            label: const Text(
-                              'Ver Indice',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            )),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              '/indice',
+                              arguments: CuatrimestreIndice(
+                                  estudianteId: arguments.estudianteId,
+                                  cuatrimestreId: list[0].cuatrimestreId),
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.bar_chart_outlined,
+                            color: Colors.white,
+                            size: 25,
+                          ),
+                          label: const Text(
+                            'Ver Indice',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                     ]),
               ),
@@ -283,9 +284,12 @@ class _CalificacionesState extends State<Calificaciones> {
         children: [
           SizedBox(width: 180, child: Text(cuatrimestreDto.nombreMateria)),
           (int.parse(cuatrimestreDto.nota) < 69)
-              ? getNota(cuatrimestreDto.nota, cuatrimestreDto.calificacion,
-                  color: const Color(0xFFEC1C24))
-              : getNota(cuatrimestreDto.nota, cuatrimestreDto.calificacion)
+              ? getNota(
+                  cuatrimestreDto.nota,
+                  cuatrimestreDto.calificacion,
+                  color: const Color(0xFFEC1C24),
+                )
+              : getNota(cuatrimestreDto.nota, cuatrimestreDto.calificacion),
         ],
       ),
     );
