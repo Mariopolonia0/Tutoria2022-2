@@ -187,18 +187,28 @@ class _MateriaHoyState extends State<MateriaHoy> {
   }
 
   obtenerMaterias() async {
-    final client = RestClient(Dio(BaseOptions(
-      contentType: Headers.jsonContentType,
-      validateStatus: (_) => true,
-    )));
-    client.getMateriaHoy(arguments.estudianteId.toString()).then((value) {
-      _listMateriasDtos = value;
-      setState(() {
-        loading = 1;
-      });
-    }).catchError((Object obj) {
-      const Text('Error de Internet');
-    });
+    final client = RestClient(
+      Dio(
+        BaseOptions(
+          contentType: Headers.jsonContentType,
+          validateStatus: (_) => true,
+        ),
+      ),
+    );
+    client.getMateriaHoy(arguments.estudianteId.toString()).then(
+      (value) {
+        _listMateriasDtos = value;
+        setState(
+          () {
+            loading = 1;
+          },
+        );
+      },
+    ).catchError(
+      (Object obj) {
+        const Text('Error de Internet');
+      },
+    );
   }
 
   Widget getNotieneMateria() {
@@ -209,19 +219,24 @@ class _MateriaHoyState extends State<MateriaHoy> {
           'assets/icon/iconUcne.png',
           width: 100,
         ),
-        const Text("Estimado estudiante, no tiene docencia hoy.",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF00247D))),
+        const Text(
+          "Estimado estudiante, no tiene docencia hoy.",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF00247D),
+          ),
+        ),
         const SizedBox(
           height: 18,
         ),
-        const Text("Valoramos tu tiempo",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white))
+        const Text(
+          "Valoramos tu tiempo",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
+        )
       ],
     );
   }
@@ -299,7 +314,8 @@ class _MateriaHoyState extends State<MateriaHoy> {
                   color: Color(0xFF000000),
                 ),
                 onTap: () {
-                  Navigator.of(context).pushNamed('/', arguments: arguments);
+                  Navigator.of(context)
+                      .pushNamed('/notificacion', arguments: arguments);
                 },
               ),
 

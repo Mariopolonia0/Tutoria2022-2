@@ -45,10 +45,7 @@ class _IndiceState extends State<Indice> {
       case 2:
         {
           return Center(
-              child: Text('Error De Internet ' +
-                  arguments.cuatrimestreId.toString() +
-                  '-' +
-                  arguments.estudianteId.toString()));
+              child: Text('Error De Internet ${arguments.cuatrimestreId}-${arguments.estudianteId}'));
         }
       default:
         {

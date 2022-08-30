@@ -101,16 +101,15 @@ class _PerfilState extends State<Perfil> {
       alignment: Alignment.center,
       padding: const EdgeInsets.only(left: 8, top: 8, bottom: 16, right: 8),
       decoration: const BoxDecoration(
-          gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment(0.8, 1),
-        colors: <Color>[
-          Color(0xFF00247D),
-          Color(0xFFF62929),
-        ],
-      )),
-      // Gradient from htt
-      // color: const Color(0xFF00247D),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment(0.8, 1),
+          colors: <Color>[
+            Color(0xFF00247D),
+            Color(0xFFF62929),
+          ],
+        ),
+      ),
       child: Column(
         children: [
           Padding(

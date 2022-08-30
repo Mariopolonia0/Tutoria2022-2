@@ -4,14 +4,16 @@ import 'package:projecto_ucne/ui/estado_cuenta/estado_cuenta.dart';
 import 'package:projecto_ucne/ui/indice/indice.dart';
 import 'package:projecto_ucne/ui/login/login_screen.dart';
 import 'package:projecto_ucne/ui/materia_hoy/materia_hoy.dart';
+import 'package:projecto_ucne/ui/notificacion/notificacion.dart';
 import 'package:projecto_ucne/ui/perfil/perfil.dart';
 import 'package:projecto_ucne/ui/progreso_academico/progreso_academico.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(
+    MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Ucne Consulta",
-      initialRoute: '/',
+      initialRoute: '/notificacion',
       //aqui van las rutas de las ventanas
       routes: {
         '/': (context) => const LoginScreen(),
@@ -20,6 +22,9 @@ void main() {
         '/estadoCuenta': (context) => const EstadoCuenta(),
         '/progresoAcademico': (context) => const ProgresoAcademico(),
         '/calificaciones': (context) => const Calificaciones(),
-        '/indice': (context) => const Indice()
-      }));
+        '/indice': (context) => const Indice(),
+        '/notificacion': (context) => const Nortificacion()
+      },
+    ),
+  );
 }

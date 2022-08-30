@@ -31,13 +31,15 @@ class _CalificacionesState extends State<Calificaciones> {
     obtenerListaCuatrimestre();
     obtenerCalificaciones();
     return Scaffold(
-        backgroundColor: const Color(0xFF91D8F7),
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-            surfaceTintColor: Colors.white,
-            backgroundColor: const Color(0xFF00247D),
-            title: const Text('Mis Calificaciones')),
-        body: obtenerVista(context));
+      backgroundColor: const Color(0xFF91D8F7),
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        surfaceTintColor: Colors.white,
+        backgroundColor: const Color(0xFF00247D),
+        title: const Text('Mis Calificaciones'),
+      ),
+      body: obtenerVista(context),
+    );
   }
 
   Widget obtenerVista(BuildContext context) {
@@ -80,45 +82,65 @@ class _CalificacionesState extends State<Calificaciones> {
   }
 
   obtenerListaCuatrimestre() async {
-    final client = RestClient(Dio(BaseOptions(
-      contentType: Headers.jsonContentType,
-      validateStatus: (_) => true,
-    )));
-    client
-        .getListaCuatrimestre(arguments.estudianteId.toString())
-        .then((value) {
-      if (listaYeard == null) {
-        setState(() {
-          listaYeard = value;
-          dropdownValue = value[0];
-          loading = 1;
-        });
-      }
-    }).catchError((Object obj) {
-      setState(() {
-        loading = 2;
-      });
-    });
+    final client = RestClient(
+      Dio(
+        BaseOptions(
+          contentType: Headers.jsonContentType,
+          validateStatus: (_) => true,
+        ),
+      ),
+    );
+    client.getListaCuatrimestre(arguments.estudianteId.toString()).then(
+      (value) {
+        if (listaYeard == null) {
+          setState(
+            () {
+              listaYeard = value;
+              dropdownValue = value[0];
+              loading = 1;
+            },
+          );
+        }
+      },
+    ).catchError(
+      (Object obj) {
+        setState(
+          () {
+            loading = 2;
+          },
+        );
+      },
+    );
   }
 
   obtenerCalificaciones() async {
-    final client = RestClient(Dio(BaseOptions(
-      contentType: Headers.jsonContentType,
-      validateStatus: (_) => true,
-    )));
+    final client = RestClient(
+      Dio(
+        BaseOptions(
+          contentType: Headers.jsonContentType,
+          validateStatus: (_) => true,
+        ),
+      ),
+    );
     client
         .getMateriaCuatrimestre(
             arguments.estudianteId.toString(), dropdownValue)
-        .then((value) {
-      setState(() {
-        listaCuatrimestre = value;
-        loading2 = 1;
-      });
-    }).catchError((Object obj) {
-      setState(() {
-        loading2 = 2;
-      });
-    });
+        .then(
+      (value) {
+        setState(() {
+          listaCuatrimestre = value;
+          loading2 = 1;
+        });
+      },
+    ).catchError(
+      (Object obj) {
+        setState(
+          () {
+            loading2 = 2;
+          },
+        );
+      },
+    );
   }
 
   Widget obtenerVistaCuatrimestre() {
@@ -175,102 +197,107 @@ class _CalificacionesState extends State<Calificaciones> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '$trimestre-$dropdownValue',
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 40,
-                        child: TextButton.icon(
-                          onPressed: () {
-                            Navigator.of(context).pushNamed(
-                              '/indice',
-                              arguments: CuatrimestreIndice(
-                                  estudianteId: arguments.estudianteId,
-                                  cuatrimestreId: list[0].cuatrimestreId),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.bar_chart_outlined,
-                            color: Colors.white,
-                            size: 25,
-                          ),
-                          label: const Text(
-                            'Ver Indice',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '$trimestre-$dropdownValue',
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 40,
+                      child: TextButton.icon(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(
+                            '/indice',
+                            arguments: CuatrimestreIndice(
+                              estudianteId: arguments.estudianteId,
+                              cuatrimestreId: list[0].cuatrimestreId,
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.bar_chart_outlined,
+                          color: Colors.white,
+                          size: 25,
+                        ),
+                        label: const Text(
+                          'Ver Indice',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                    ]),
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 8, 0, 4),
               child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
                   ),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const SizedBox(
-                              width: 180,
-                              child: Text('ASIGNATURA',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: const [
-                                    Text('NOTA',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    Text('CALIFICACIÓN',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
                         ),
                       ),
-                      ListView.builder(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.all(4),
-                          itemCount: list.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return pintarMateria(list[index]);
-                          }),
-                    ],
-                  )),
-            )
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const SizedBox(
+                            width: 180,
+                            child: Text(
+                              'ASIGNATURA',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Text('NOTA',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  Text('CALIFICACIÓN',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(4),
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return pintarMateria(list[index]);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ));
   }
@@ -282,7 +309,10 @@ class _CalificacionesState extends State<Calificaciones> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(width: 180, child: Text(cuatrimestreDto.nombreMateria)),
+          SizedBox(
+            width: 180,
+            child: Text(cuatrimestreDto.nombreMateria),
+          ),
           (int.parse(cuatrimestreDto.nota) < 69)
               ? getNota(
                   cuatrimestreDto.nota,
@@ -304,8 +334,12 @@ class _CalificacionesState extends State<Calificaciones> {
           children: [
             Text(nota, style: TextStyle(color: color)),
             SizedBox(
-                width: 20,
-                child: Text(calificacion, style: TextStyle(color: color))),
+              width: 20,
+              child: Text(
+                calificacion,
+                style: TextStyle(color: color),
+              ),
+            ),
           ],
         ),
       ),
@@ -344,9 +378,11 @@ class _CalificacionesState extends State<Calificaciones> {
             );
           }).toList(),
           onChanged: (String? newValue) {
-            setState(() {
-              dropdownValue = newValue!;
-            });
+            setState(
+              () {
+                dropdownValue = newValue!;
+              },
+            );
           },
         ),
       ),

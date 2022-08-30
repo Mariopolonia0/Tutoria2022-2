@@ -22,38 +22,52 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFF91D8F7),
-        body: loading
-            ? const Center(child: CircularProgressIndicator())
-            : formulario(context));
+      backgroundColor: const Color(0xFF91D8F7),
+      body: loading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : formulario(context),
+    );
   }
 
   validarlogin() {
-    final client = RestClient(Dio(BaseOptions(
-      contentType: Headers.jsonContentType,
-      validateStatus: (_) => true,
-    )));
+    final client = RestClient(
+      Dio(
+        BaseOptions(
+          contentType: Headers.jsonContentType,
+          validateStatus: (_) => true,
+        ),
+      ),
+    );
 
-    client
-        .hacerLogin(matriculaController.text, passwortController.text)
-        .then((login) {
-      setState(() {
-        loading = false;
-      });
-      if (login.estudianteId == 0) {
-        desactivarprogress('Matricula y contraseña incorrecto');
-      } else {
-        Navigator.of(context).popAndPushNamed('/materiaHoy', arguments: login);
-      }
-    }).catchError((Object obj) {
-      desactivarprogress('Error de internet');
-    });
+    client.hacerLogin(matriculaController.text, passwortController.text).then(
+      (login) {
+        setState(
+          () {
+            loading = false;
+          },
+        );
+        if (login.estudianteId == 0) {
+          desactivarprogress('Matricula y contraseña incorrecto');
+        } else {
+          Navigator.of(context)
+              .popAndPushNamed('/materiaHoy', arguments: login);
+        }
+      },
+    ).catchError(
+      (Object obj) {
+        desactivarprogress('Error de internet');
+      },
+    );
   }
 
   void desactivarprogress(String texto) {
-    setState(() {
-      loading = false;
-    });
+    setState(
+      () {
+        loading = false;
+      },
+    );
     showDialog(
         context: context,
         builder: (BuildContext context) => alertDialog(texto, context));
